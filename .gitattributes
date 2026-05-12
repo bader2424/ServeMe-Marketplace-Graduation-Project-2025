@@ -61,3 +61,16 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# GitHub language statistics
+#
+# The project contains large static frontend assets under wwwroot. Marking them
+# as vendored keeps GitHub Linguist focused on the application source code.
+###############################################################################
+SERVE_ME_PROJECT/wwwroot/** linguist-vendored
+SERVE_ME_PROJECT/wwwroot/**/*.css linguist-generated
+SERVE_ME_PROJECT/wwwroot/**/*.scss linguist-generated
+SERVE_ME_PROJECT/wwwroot/**/*.js linguist-generated
+SERVE_ME_PROJECT/wwwroot/**/*.min.css linguist-generated
+SERVE_ME_PROJECT/wwwroot/**/*.min.js linguist-generated
