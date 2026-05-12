@@ -36,26 +36,54 @@ The project includes public browsing pages, role-based authentication, provider 
 Requirements:
 
 - Docker Desktop
+- Git
 - 4 GB or more memory available for Docker is recommended because SQL Server runs in a container
 
-Clone the repository, then run:
+### 1. Clone the Repository
+
+```powershell
+git clone https://github.com/bader2424/ServeMe-Marketplace-Graduation-Project-2025.git
+cd ServeMe-Marketplace-Graduation-Project-2025
+```
+
+### 2. Start the Application
 
 ```powershell
 docker compose up --build
 ```
 
-Open the app:
+The first run can take a few minutes because Docker downloads images, restores NuGet packages, starts SQL Server, applies migrations, and seeds demo data.
+
+Wait until the terminal shows that the web app is listening on port `8080`.
+
+### 3. Open the Website
 
 ```text
 http://localhost:8080
 ```
 
-The first run can take a few minutes because Docker downloads images, restores NuGet packages, starts SQL Server, applies migrations, and seeds demo data.
+### 4. Sign In With a Demo Account
 
-For later runs, use:
+Open the login page:
+
+```text
+http://localhost:8080/Identity/Account/Login
+```
+
+Use one of the demo accounts below to test the customer, provider, or admin workflows.
+
+### 5. Run Again Later
+
+After the first successful build, start the app with:
 
 ```powershell
 docker compose up
+```
+
+### 6. Stop the Application
+
+```powershell
+docker compose down
 ```
 
 ## Demo Accounts
