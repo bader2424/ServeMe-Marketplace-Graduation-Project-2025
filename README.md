@@ -22,6 +22,7 @@ The project includes public browsing pages, role-based authentication, provider 
 
 - ASP.NET Core MVC (.NET 8)
 - C#
+- Full-stack web application
 - Entity Framework Core
 - ASP.NET Core Identity
 - Microsoft SQL Server
