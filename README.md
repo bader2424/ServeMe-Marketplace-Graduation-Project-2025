@@ -1,8 +1,8 @@
 # ServeMe
 
-ServeMe is a social-services marketplace built with ASP.NET Core MVC. The platform helps customers browse and book services for weddings, graduations, tourism trips, halls, catering, photography, gifts, tailoring, and event organization.
+ServeMe is a full-stack social-services marketplace built as a 2025 Computer Engineering graduation project. The platform helps customers browse and book services for weddings, graduations, tourism trips, halls, catering, photography, gifts, tailoring, and event organization.
 
-The project includes public browsing pages, role-based authentication, provider tools, admin management screens, wallet workflows, SQL Server persistence, seeded demo data, and a Docker Compose setup for running the full app locally.
+The project includes public browsing pages, role-based authentication, provider tools, admin management screens, wallet workflows, SQL Server persistence, seeded demo data, and a Docker Compose setup for running the full application locally.
 
 ## Main Features
 
