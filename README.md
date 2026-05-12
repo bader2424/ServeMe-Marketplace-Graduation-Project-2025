@@ -15,7 +15,7 @@ No local .NET SDK or local SQL Server installation is required when running with
 From this folder:
 
 ```powershell
-cd "C:\Users\DELL\Downloads\SERVE_ME_PROJECT22-master\SERVE_ME_PROJECT22-master"
+cd "C:\SERVE_ME_PROJECT22-master\SERVE_ME_PROJECT22-master"
 docker compose up --build
 ```
 
