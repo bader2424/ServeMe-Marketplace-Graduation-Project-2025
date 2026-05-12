@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join as a Service Provider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="login/login.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form>
+                <h1>إنشاء حساب</h1>
+                <div class="form-group">
+                    <input type="text" id="username" placeholder=" " required>
+                    <label for="username">اسم المستخدم</label>
+                    <i class="fas fa-user icon"></i>
+                    <span class="error-message" id="usernameError">يرجى إدخال اسم المستخدم.</span>
+                </div>                <div class="form-group">
+                    <input type="text" id="fullName" placeholder=" " required>
+                    <label for="fullName">الاسم الكامل</label>
+                    <i class="fas fa-id-badge icon"></i>
+                    <span class="error-message" id="fullNameError">يرجى إدخال اسمك الكامل.</span>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder=" " required>
+                    <label for="email">البريد الإلكتروني</label>
+                    <i class="fas fa-envelope icon"></i>
+                    <span class="error-message" id="emailError">يرجى إدخال عنوان بريد إلكتروني صالح.</span>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder=" " required>
+                    <label for="password">كلمة المرور</label>
+                    <i class="fas fa-lock icon"></i>
+                    <span class="error-message" id="passwordError">يرجى إدخال كلمة المرور.</span>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder=" " required>
+                    <label for="phone">رقم الهاتف</label>
+                    <i class="fas fa-phone icon"></i>
+                    <span class="error-message" id="phoneError">يرجى إدخال رقم هاتف صالح.</span>
+                </div>
+                
+                <div class="form-group">
+                    <select id="accountType" required>
+                        <option value="" disabled selected>اختر عنواناً</option>
+                        <option value="user">المكلا</option>
+                        <option value="admin">الشحر</option>
+                        <option value="admin">الغيل</option>
+
+                    </select>
+                    <label for="accountType">العنوان</label>
+                    <i class="fas fa-user-tag icon"></i>
+                    <span class="error-message" id="accountTypeError">يرجى اختيار عنوان.</span>
+                </div>
+                <button type="submit">تسجيل</button>
+            </form>
+        </div>
+        
+        <div class="form-container sign-in">
+            <form>
+                <h1>تسجيل الدخول</h1>
+                <div class="form-group">
+                    <input type="email" id="signinEmail" placeholder=" " required>
+                    <label for="signinEmail">البريد الإلكتروني</label>
+                    <i class="fas fa-envelope icon"></i>
+                    <span class="error-message" id="signinEmailError">يرجى إدخال بريدك الإلكتروني.</span>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signinPassword" placeholder=" " required>
+                    <label for="signinPassword">كلمة المرور</label>
+                    <i class="fas fa-lock icon"></i>
+                    <span class="error-message" id="signinPasswordError">يرجى إدخال كلمة المرور.</span>
+                </div>
+                <a href="#">هل نسيت كلمة المرور؟</a>
+                <button type="submit">تسجيل الدخول</button>
+            </form>
+        </div>
+        
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>مرحبًا بعودتك!</h1>
+                    <p>أدخل بياناتك الشخصية لاستخدام جميع ميزات الموقع</p>
+                    <button class="hidden" id="login">أنشاء حساب</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>مرحبًا، صديقي!</h1>
+                    <p>قم بتسجيل بياناتك الشخصية لاستخدام جميع ميزات الموقع</p>
+                    <button class="hidden" id="register">تسجيل الدخول</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+    <script src="login/login.js"> 
+       
+    </script>
+</body>
+</html>

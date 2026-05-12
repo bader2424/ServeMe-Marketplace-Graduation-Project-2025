@@ -1,0 +1,94 @@
+﻿@model List<SERVE_ME_PROJECT.Models.ServiceModel>
+
+@{
+	Layout = "_LayoutServices";
+}@{
+    // تحويل StringValues إلى مصفوفة string غير فارغة
+    var selectedCities = Context.Request.Query["cities"]
+        .Where(c => !string.IsNullOrEmpty(c)) // إزالة القيم الفارغة
+        .ToArray(); // تحويلها إلى مصفوفة من النوع string
+    var catalogController = ViewBag.CatalogController as string ?? "Graduation";
+    }
+<!-- SECTION: فلتر المنتجات و عرضها -->
+<div class="section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- الفلتر الجانبي -->
+            <div id="aside" class="col-md-3" dir="ltr">
+                <form method="get" asp-action="Services" asp-controller="@catalogController">
+                    <div class="aside p-4 bg-white rounded shadow-sm">
+                        <h3 class="aside-title text-center">الفلتر حسب المدينة</h3>
+                        <div class="checkbox-filter">
+                            <!-- فلتر المدن مع التحقق من المدن المختارة -->
+                            <div class="input-checkbox">
+                                <input type="checkbox" id="city-mukalla" name="cities" value="المكلا" @(selectedCities.Contains("المكلا") ? "checked" : "") />
+                                <label for="city-mukalla">المكلا</label>
+                            </div>
+                            <div class="input-checkbox">
+                                <input type="checkbox" id="city-shihr" name="cities" value="الشحر" @(selectedCities.Contains("الشحر") ? "checked" : "") />
+                                <label for="city-shihr">الشحر</label>
+                            </div>
+                            <div class="input-checkbox">
+                                <input type="checkbox" id="city-ghail" name="cities" value="الغيل" @(selectedCities.Contains("الغيل") ? "checked" : "") />
+                                <label for="city-ghail">الغيل</label>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">تصفية</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- عرض المنتجات -->
+            <div id="store" class="col-md-9">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 col-xs-6 mb-4">
+                            <div class="product card shadow-sm border-0">
+                                <div class="product-img card-img-top">
+                                    <img src="@item.Images?.FirstOrDefault()?.ImagePath" alt="صورة الخدمة" class="img-fluid rounded">
+                                </div>
+                                <div class="product-body card-body text-center">
+                                    <p class="product-category text-muted">@item.Category?.Name</p>
+                                    <h3 class="product-name fw-bold">
+                                        <a asp-action="ServiceDetails" asp-route-id="@item.Id" class="text-dark">@item.Name</a>
+                                    </h3>
+                                    <h4 class="product-price text-success mb-3">@item.Price.ToString("C")</h4>
+                                    <div class="product-rating">
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star-o text-muted"></i>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart text-center">
+                                    <a asp-action="Details_Services" asp-controller="@catalogController" asp-route-id="@item.Id" class="btn btn-primary btn-lg px-4 py-2 w-100">
+                                        <i class="fa fa-shopping-cart me-2"></i> التفاصيل
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- تصفية المنتجات حسب الصفحات -->
+                <div class="store-filter clearfix mt-5">
+                    <span class="store-qty">مشاهدة المزيد</span>
+                    <ul class="store-pagination list-inline text-center">
+                        @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                        {
+                            <li class="list-inline-item @(i == (int)ViewBag.CurrentPage ? "active" : "")">
+                                <a asp-action="Services" asp-controller="@catalogController" asp-route-categoryId="@ViewBag.CategoryId" asp-route-page="@i" class="btn btn-link">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /SECTION -->

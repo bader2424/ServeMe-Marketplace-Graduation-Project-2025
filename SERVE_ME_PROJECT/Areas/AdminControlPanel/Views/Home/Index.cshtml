@@ -1,0 +1,187 @@
+﻿@using SERVE_ME_PROJECT.ViewModel
+@model VmStatistics
+
+@{
+    ViewData["Title"] = "إحصائيات المشرف";
+    Layout = "_LayoutAdmin";
+}
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">إحصائيات المشرف</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي الطلبات</h5>
+                    <p class="card-text" style="font-size: 2rem;">@Model.TotalOrders</p>
+                </div>
+            </div>
+        </div>
+        
+            <div class="col-md-4 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي العملاء</h5>
+                    <p class="card-text" style="font-size: 2rem;">@Model.TotalCustomers</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي مقدمي الخدمات</h5>
+                    <p class="card-text" style="font-size: 2rem;">@Model.TotalProviders</p>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي الخدمات</h5>
+                    <p class="card-text" style="font-size: 2rem;">@Model.TotalServices</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي قيمة الطلبات</h5>
+                    <p class="card-text" style="font-size: 2rem;">@Model.TotalOrderValue.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title">إجمالي قيمة الطلبات</h5>
+                    <p class="card-text" style="font-size: 2rem;">@Model.TotalOrderValue.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🎯 المخططات البيانية -->
+    <div class="stats-charts mt-5">
+        <div class="row text-center mb-4">
+            <h4 class="text-warning">المخططات البيانية</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <canvas id="barChart" height="250"></canvas>
+            </div>
+            <div class="col-md-4 mb-3">
+                <canvas id="pieChart" height="250"></canvas>
+            </div>
+            <div class="col-md-4 mb-3">
+                <canvas id="lineChart" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ Chart.js مكتبة -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ✅ المخططات -->
+<script>
+    const labels = ['الطلبات', 'العملاء', 'المزودين', 'الخدمات', 'قيمة الطلبات'];
+    const dataValues = [
+    @Model.TotalOrders,
+    @Model.TotalCustomers,
+    @Model.TotalProviders,
+    @Model.TotalServices,
+    @Model.TotalOrderValue
+    ];
+
+    const backgroundColors = [
+        '#facc15',
+        '#4ade80',
+        '#f97316',
+        '#38bdf8',
+        '#a78bfa'
+    ];
+
+    // Bar Chart
+    new Chart(document.getElementById('barChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'عدد الإجماليات',
+                data: dataValues,
+                backgroundColor: backgroundColors,
+                borderColor: '#1f2937',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Pie Chart
+    new Chart(document.getElementById('pieChart').getContext('2d'), {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: dataValues,
+                backgroundColor: backgroundColors
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // Line Chart
+    new Chart(document.getElementById('lineChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'نمو الإحصائيات',
+                data: dataValues,
+                fill: false,
+                borderColor: '#facc15',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+<!-- ✅ تنسيق إضافي -->
+<style>
+    .stats-charts {
+        background-color: #1f2937;
+        border: 2px solid #facc15;
+        padding: 20px;
+        border-radius: 12px;
+    }
+</style>
+
+
+

@@ -1,0 +1,158 @@
+﻿@model List<SERVE_ME_PROJECT.Models.OrderModel>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    Layout = "_LayoutServeMe";
+    ViewData["Title"] = "الملف الشخصي";
+    var walletBalance = ViewBag.WalletBalance as decimal? ?? 0;
+    var currentUser = await UserManager.GetUserAsync(User);
+
+    var profileImage = string.IsNullOrEmpty(currentUser.ProfileImagePath)
+        ? Url.Content("~/images/user-placeholder.png")
+        : Url.Content("~/imgusers/" + currentUser.ProfileImagePath);
+}
+
+<style>
+    body {
+        font-family: 'Cairo', sans-serif;
+        background-color: #f4f7fa;
+    }
+
+    .profile-wrapper {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        direction: rtl;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+        .profile-header img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #007bff;
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .profile-header h2 {
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+        }
+
+    .edit-btn {
+        margin-top: 10px;
+        font-size: 14px;
+        padding: 6px 16px;
+        border-radius: 20px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .info-card {
+        background: #f0f4f9;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+        text-align: center;
+        position: relative;
+    }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .info-icon {
+        background: #007bff;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+        font-size: 22px;
+    }
+
+    .info-title {
+        font-weight: bold;
+        color: #444;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        font-size: 15px;
+        color: #333;
+    }
+
+    a.link-card {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a.link-card:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="profile-wrapper">
+    <div class="profile-header">
+        <img src="@profileImage" alt="صورة المستخدم" onerror="this.src='@Url.Content("~/images/user-placeholder.png")'" />
+        <h2>@currentUser.FullName</h2>
+        <a class="btn btn-primary edit-btn" asp-action="Edit" asp-controller="ProfileUser">تعديل الملف الشخصي</a>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-card">
+            <div class="info-icon"><i class="bi bi-person-circle"></i></div>
+            <div class="info-title">اسم المستخدم</div>
+            <div class="info-value">@currentUser.UserName</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="bi bi-envelope"></i></div>
+            <div class="info-title">البريد الإلكتروني</div>
+            <div class="info-value">@currentUser.Email</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="bi bi-telephone"></i></div>
+            <div class="info-title">رقم الجوال</div>
+            <div class="info-value">@currentUser.PhoneNumber</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="bi bi-geo-alt"></i></div>
+            <div class="info-title">المدينة</div>
+            <div class="info-value">@currentUser.City</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="bi bi-wallet2"></i></div>
+            <div class="info-title">رصيد المحفظة</div>
+            <div class="info-value">@walletBalance.ToString("N2") ريال</div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="bi bi-card-list"></i></div>
+            <div class="info-title">طلباتي</div>
+            <div class="info-value">
+                <a asp-controller="ProfileUser" asp-action="MyOrders" class="link-card">عرض جميع الطلبات</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\headerFoter\**" />
+    <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="wwwroot\headerFoter\**" />
+    <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\headerFoter\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="wwwroot\headerFoter\**" />
+    <None Remove="wwwroot\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\v17\DocumentLayout.backup.json" />
+    <Content Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\v17\DocumentLayout.json" />
+    <Content Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\v17\DocumentLayout.backup.json" />
+    <Content Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\v17\DocumentLayout.json" />
+    <Content Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\v17\DocumentLayout.backup.json" />
+    <Content Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\v17\DocumentLayout.json" />
+    <Content Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\v17\DocumentLayout.backup.json" />
+    <Content Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\v17\DocumentLayout.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\ProjectEvaluation\social.metadata.v9.bin" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\ProjectEvaluation\social.projects.v9.bin" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\ProjectEvaluation\social.strings.v9.bin" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\config\applicationhost.config" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\DesignTimeBuild\.dtbcache.v2" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\FileContentIndex\1a0998ec-1b95-46f9-b046-a271b24b9032.vsidx" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\FileContentIndex\b6cd741f-b2e1-42a6-8038-3d17b2c714ec.vsidx" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\v17\.futdcache.v2" />
+    <None Include="wwwroot\assets\images\حفلات_اعراس\.vs\Social\v17\.suo" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\ProjectEvaluation\social.metadata.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\ProjectEvaluation\social.projects.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\ProjectEvaluation\social.strings.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\config\applicationhost.config" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\DesignTimeBuild\.dtbcache.v2" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\FileContentIndex\1a0998ec-1b95-46f9-b046-a271b24b9032.vsidx" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\FileContentIndex\b6cd741f-b2e1-42a6-8038-3d17b2c714ec.vsidx" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\v17\.futdcache.v2" />
+    <None Include="wwwroot\serveme\assets\img\gen\gro\.vs\Social\v17\.suo" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\ProjectEvaluation\social.metadata.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\ProjectEvaluation\social.projects.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\ProjectEvaluation\social.strings.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\config\applicationhost.config" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\DesignTimeBuild\.dtbcache.v2" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\FileContentIndex\1a0998ec-1b95-46f9-b046-a271b24b9032.vsidx" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\FileContentIndex\b6cd741f-b2e1-42a6-8038-3d17b2c714ec.vsidx" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\v17\.futdcache.v2" />
+    <None Include="wwwroot\serveme\assets\img\gen\photo\.vs\Social\v17\.suo" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\ProjectEvaluation\social.metadata.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\ProjectEvaluation\social.projects.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\ProjectEvaluation\social.strings.v9.bin" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\config\applicationhost.config" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\DesignTimeBuild\.dtbcache.v2" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\FileContentIndex\1a0998ec-1b95-46f9-b046-a271b24b9032.vsidx" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\FileContentIndex\b6cd741f-b2e1-42a6-8038-3d17b2c714ec.vsidx" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\v17\.futdcache.v2" />
+    <None Include="wwwroot\serveme\assets\img\gen\team\.vs\Social\v17\.suo" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\**\.vs\**" />
+    <None Remove="wwwroot\**\.vs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\AdminControlPanel\Data\" />
+    <Folder Include="Areas\AdminControlPanel\Models\" />
+    <Folder Include="Areas\Provider\Data\" />
+    <Folder Include="Areas\Provider\Models\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="NewFolder\" />
+    <Folder Include="wwwroot\uploads\deposit_proofs\" />
+    <Folder Include="wwwroot\uploads\deposits\" />
+    <Folder Include="wwwroot\uploads\services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+</Project>

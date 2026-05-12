@@ -1,0 +1,178 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmServiceRequests
+
+@{
+    ViewData["Title"] = "طلبات الخدمات";
+    Layout = "_LayoutProvid";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">طلبات الخدمات</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Orders.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>رقم الطلب</th>
+                                        <th>الخدمة</th>
+                                        <th>العميل</th>
+                                        <th>المبلغ</th>
+                                        <th>التاريخ</th>
+                                        <th>الحالة</th>
+                                        <th>الإجراءات</th>
+                                        <th>التفاصيل</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td>#@order.Id</td>
+                                            <td>@order.Service?.Name</td>
+                                            <td>@order.User?.FullName</td>
+                                            <td>@order.Price.ToString("N2") ر.ي</td>
+                                            <td>@order.OrderDate.ToString("yyyy/MM/dd")</td>
+                                            <td>
+                                                <span class="badge @GetStatusBadge(order.OrderStat?.Name)">
+                                                    @order.OrderStat?.Name
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (order.StatOrderId == 1) // Pending
+                                                {
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-sm btn-success"
+                                                                data-bs-toggle="modal" data-bs-target="#acceptModal-@order.Id">
+                                                            <i class="fas fa-check"></i> قبول
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal" data-bs-target="#rejectModal-@order.Id">
+                                                            <i class="fas fa-times"></i> رفض
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Modal القبول -->
+                                                    <div class="modal fade" id="acceptModal-@order.Id" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bg-success text-white">
+                                                                    <h5 class="modal-title">تأكيد القبول</h5>
+                                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>هل أنت متأكد من قبول طلب الخدمة #@order.Id؟</p>
+                                                                    <p>سيتم تحويل المبلغ (@order.Price.ToString("N2") ر.ي) إلى محفظتك.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form asp-action="AcceptOrder" method="post">
+                                                                        <input type="hidden" name="id" value="@order.Id" />
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                                        <button type="submit" class="btn btn-success">تأكيد القبول</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Modal الرفض -->
+                                                    <div class="modal fade" id="rejectModal-@order.Id" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bg-danger text-white">
+                                                                    <h5 class="modal-title">تأكيد الرفض</h5>
+                                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form asp-action="RejectOrder" method="post">
+                                                                    <div class="modal-body">
+                                                                        <p>هل أنت متأكد من رفض طلب الخدمة #@order.Id؟</p>
+                                                                        <p>سيتم إعادة المبلغ (@order.Price.ToString("N2") ر.ي) إلى العميل.</p>
+                                                                        <div class="form-group mt-3">
+                                                                            <label for="rejectionReason-@order.Id" class="form-label">سبب الرفض (اختياري)</label>
+                                                                            <input type="hidden" name="id" value="@order.Id" />
+                                                                            <textarea id="rejectionReason-@order.Id" name="rejectionReason" class="form-control" rows="3"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                                        <button type="submit" class="btn btn-danger">تأكيد الرفض</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                <td>
+                                                    <a asp-action="OrderDetails" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-eye"></i>  عرض التفاصيل
+                                                    </a>
+                                                </td>
+                                                }</td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Page navigation" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                @if (Model.CurrentPage > 1)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="ServiceRequests" asp-route-page="@(Model.CurrentPage - 1)">
+                                            السابق
+                                        </a>
+                                    </li>
+                                }
+
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" asp-action="ServiceRequests" asp-route-page="@i">@i</a>
+                                    </li>
+                                }
+
+                                @if (Model.CurrentPage < Model.TotalPages)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" asp-action="ServiceRequests" asp-route-page="@(Model.CurrentPage + 1)">
+                                            التالي
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            <i class="fas fa-info-circle"></i> لا توجد لديك أي طلبات حالياً
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "معلق" => "bg-warning",
+            "مقبول" => "bg-success",
+            "مرفوض" => "bg-danger",
+            "مكتمل" => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+}

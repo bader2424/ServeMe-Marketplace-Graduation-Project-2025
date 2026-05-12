@@ -1,0 +1,49 @@
+﻿@using SERVE_ME_PROJECT.ViewModel
+@model VmBlog
+
+@{
+    Layout = "_LayoutServeMe";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Blog Details Section -->
+            <section id="blog-details" class="blog-details section">
+                <div class="container">
+                    <article class="article">
+                        <!-- عرض صورة المدونة -->
+                        <div class="post-img">
+                            <img src="~/img/@Model.BlogModel[0].ImgUrl" alt="@Model.BlogModel[0].Title" class="img-fluid">
+                        </div>
+
+                        <!-- عنوان المدونة -->
+                        <h2 class="title">@Model.BlogModel[0].Title</h2>
+
+                        <div class="meta-top">
+                            <ul>
+                                <!-- عرض تاريخ النشر -->
+                                <li class="d-flex align-items-center">
+                                    <i class="bi bi-clock"></i>
+                                    <a href="blog-details.html">
+                                        <time datetime="@Model.BlogModel[0].SentDate.ToString("yyyy-MM-dd")">
+                                            @Model.BlogModel[0].SentDate.ToString("dd MMM yyyy")
+                                        </time>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- End meta top -->
+
+                        <!-- محتوى المدونة -->
+                        <div class="content">
+                            <p>@Model.BlogModel[0].Content</p>
+                        </div><!-- End post content -->
+
+                    </article>
+                </div>
+            </section><!-- /Blog Details Section -->
+
+            <!-- Blog Author Section -->
+        </div>
+    </div>
+</div>

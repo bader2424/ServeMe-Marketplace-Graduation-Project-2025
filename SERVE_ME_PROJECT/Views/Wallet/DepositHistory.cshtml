@@ -1,0 +1,113 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmDepositHistory
+
+@{
+    ViewData["Title"] = "سجل طلبات الإيداع";
+    Layout = "_LayoutServeMe";
+}
+
+<div class="deposit-history-container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>سجل طلبات الإيداع</h3>
+                <a asp-action="RequestDeposit" class="btn btn-light btn-sm">
+                    <i class="fas fa-plus"></i> طلب إيداع جديد
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.Deposits.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>رقم الطلب</th>
+                                <th>التاريخ</th>
+                                <th>المبلغ</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var deposit in Model.Deposits)
+                            {
+                                <tr>
+                                    <td>@deposit.DepositRequestId</td>
+                                    <td>@deposit.RequestDate.ToString("yyyy/MM/dd")</td>
+                                    <td>@deposit.Amount.ToString("N2") ر.ي</td>
+                                    <td>
+                                        <span class="badge @GetStatusBadgeClass(deposit.Status)">
+                                            @deposit.Status
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="@deposit.DepositProofImage" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i> عرض الإيصال
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @if (Model.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="DepositHistory" asp-route-page="@(Model.CurrentPage - 1)">
+                                    السابق
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="DepositHistory" asp-route-page="@i">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.CurrentPage < Model.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="DepositHistory" asp-route-page="@(Model.CurrentPage + 1)">
+                                    التالي
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> لا توجد طلبات إيداع سابقة
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning",
+            "Approved" => "bg-success",
+            "Rejected" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}
+
+@section Styles {
+    <style>
+        .deposit-history-container {
+            padding: 20px;
+        }
+    </style>
+}

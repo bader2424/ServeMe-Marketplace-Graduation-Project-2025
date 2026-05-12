@@ -1,0 +1,495 @@
+﻿@using SERVE_ME_PROJECT.Models
+@using SERVE_ME_PROJECT.ViewModel
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>المدونة| منصة أخدمني</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+
+    <!-- Favicons 
+    <link href="~/serveme/assets/img/ServeLogo.png" rel="icon">
+    <link href="~/serveme/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files  
+            <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/css/color1.css" media="screen" id="color">
+    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Themify icon -->
+    <link rel="stylesheet" type="text/css" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/~/serveme/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400">
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="~/css/fontawesome.css">
+
+    <!-- Main CSS File -->
+    <link href="~/css/main.css" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/sss.css">
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/services/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/services/css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/services/css/nouislider.min.css" />
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/services/css/style.css" />
+    <style>
+        body, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea {
+        font-family: 'Cairo', sans-serif;
+        margin: 0;
+        padding: 0;
+        }
+
+        .contact {
+        text-align: center;
+        }
+
+        .blog-posts .container,
+        .blog-pagination .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+
+        .post-img img {
+        display: block;
+        margin: 0 auto;
+        }
+
+        .carousel-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        }
+
+        .carousel-slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+        opacity: 1;
+        z-index: 2;
+        }
+
+        .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+
+        .carousel-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        z-index: 3;
+        text-align: center;
+        }
+    </style>
+    <style>
+        .custom-select-box {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 12px 16px;
+        width: 100%;
+        font-size: 16px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #333;
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%234C6DF0" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 16px;
+        transition: border-color 0.3s ease;
+        }
+
+        .custom-select-box:hover {
+        border-color: #4C6DF0;
+        }
+
+        .custom-select-box:focus {
+        outline: none;
+        border-color: #4C6DF0;
+        box-shadow: 0 0 5px rgba(76, 109, 240, 0.5);
+        }
+    </style>
+    <style>
+        /* تنسيق البوب-أب */
+        .popup-container {
+        display: none; /* يبدأ البوب-أب مخفيًا */
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* طبقة شفافة خلفية */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        }
+
+        .popup-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        text-align: center;
+        }
+
+        .popup-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-container.show {
+        display: flex;
+        }
+
+    </style>
+    @RenderSection("Styles", required: false)
+
+</head>
+<body>
+    @using Microsoft.AspNetCore.Identity
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+    <header>
+        <!-- Header Start -->
+        <section class="ftco-section">
+            <div class="container-fluid px-md-5">
+                <div class="row justify-content-between">
+                    <div class="col-md-8 order-md-last">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <a class="navbar-brand" asp-action="index" asp-controller="Home">أخدمني <span>منصة خدمات اجتماعية</span></a>
+                            </div>
+                            <div class="col-md-6 d-md-flex justify-content-end mb-md-0 mb-3">
+                                <!-- Search Form -->
+                                <form asp-controller="Home" asp-action="Search" method="get" class="searchform order-lg-last">
+                                    <div class="form-group d-flex">
+                                        <input type="text" class="form-control pl-3" placeholder="بحث" name="query">
+                                        <button type="submit" class="form-control search">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Social Media -->
+                    <div class="col-md-4 d-flex">
+                        <div class="social-media">
+                            <p class="mb-0 d-flex">
+                                <a asp-area="AdminControlPanel" asp-action="Index" asp-controller="Home" class="d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                                <a asp-area="Provider" asp-action="Staticts" asp-controller="Home" class="d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                                <a asp-action="index" asp-controller="Home" class="d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-instagram"></span>
+                                </a>
+                                <a asp-action="index" asp-controller="Home" class="d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-dribbble"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navbar -->
+        </section>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light">
+            <div class="container-fluid">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @* أدوار المستخدم *@
+                    @if (User.IsInRole("provider"))
+                    {
+                        <ul class="navbar-nav m-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" style="font-size:10pt">@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-action="index" asp-controller="ProfileUser" style="font-size:10pt">⚙️ إعدادات الحساب</a>
+                                    <a class="dropdown-item" asp-controller="Wallet" asp-action="Dashboard" style="font-size:10pt">📦 محفظتي </a>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" style="font-size:10pt">🚪 تسجيل الخروج</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <a asp-area="Provider" asp-controller="Home" asp-action="Index" style="margin:25px">
+                            <i class="fa fa-briefcase" style="font-size:30px ; color: white"></i>
+                        </a>
+                    }
+                    else if (User.IsInRole("customer "))
+                    {
+                        <ul class="navbar-nav m-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" style="font-size:10pt">@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-action="index" asp-controller="ProfileUser" style="font-size:10pt">⚙️ إعدادات الحساب</a>
+                                    <a class="dropdown-item" asp-controller="Wallet" asp-action="Dashboard" style="font-size:10pt">📦 محفظتي</a>
+                                    @* @Model.CurrentBalance.ToString("C",new System.Globalization.CultureInfo("ar-YE"))*@
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/ResetPassword" style="font-size:10pt">⚙️ تغير كلمة السر </a>
+                                    <a class="dropdown-item" asp-action="MyOrders" asp-controller="Order" style="font-size:10pt">📦 طلباتي</a>
+                                    <a class="dropdown-item" asp-action="RequestDeposit" asp-controller="Wallet" style="font-size:10pt">👛 شحن المحفظة</a>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" style="font-size:10pt">🚪 تسجيل الخروج</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <a asp-controller="Order" asp-action="MyOrders" style="margin:25px">
+                            <i class="fa fa-shopping-cart" class="nav-link" style="font-size:30px ;color: white"></i>
+                        </a>
+                    }
+                    else if (User.IsInRole("admin"))
+                    {
+                        <a asp-area="AdminControlPanel" asp-controller="Home" asp-action="Index" style="margin:25px ;  color: white">
+                            <i class="fa fa-cogs" style="font-size:30px"></i>محفظتي
+                        </a>
+                    }
+                }
+                else
+                {
+                    <!-- المستخدم غير مسجل دخول -->
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" style="font-size:10pt">تسجيل الدخول</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login" style="font-size:10pt">
+                                    <i class="fa fa-sign-in-alt"></i> تسجيل الدخول
+                                </a>
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register" style="font-size:10pt">
+                                    <i class="fa fa-user-plus"></i> إنشاء حساب
+                                </a>
+                            </div>
+                        </li>
+                    </ul>  
+                }
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav">
+                    <span class="fa fa-bars"></span> Menu
+                </button>
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item"><a asp-action="index" asp-controller="Home" class="nav-link" style="font-size:10pt">الصفحة الرئيسية</a></li>
+                        <li class="nav-item"><a asp-action="index" asp-controller="Tourism" class="nav-link" style="font-size:10pt">السياحة والترفيه</a></li>
+                        <li class="nav-item"><a asp-action="index" asp-controller="Graduation" class="nav-link" style="font-size:10pt">حفلات التخرج</a></li>
+                        <li class="nav-item"><a asp-action="index" asp-controller="Marrige" class="nav-link" style="font-size:10pt">حفلات الأعراس</a></li>
+                        <li class="nav-item "><a asp-action="Blog" asp-controller="Blog" class="nav-link" style="font-size:10pt">المدونة</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" style="font-size:10pt">أخدمني</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-action="Policy" asp-controller="Home" style="font-size:10pt">سياسة الخصوصية</a>
+                                <a class="dropdown-item" asp-action="index" asp-controller="Home" style="font-size:10pt">عن الموقع</a>
+                                <a class="dropdown-item" asp-action="Contact" asp-controller="ContactUsModels" style="font-size:10pt">اتصل بنا</a>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <div>
+        <main dir="rtl">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer bg-dark text-white pt-5 pb-4" style="direction: rtl; text-align: right;">
+        <div class="container text-md-right">
+            <div class="row">
+                <!-- القسم الأول: معلومات عن الموقع -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-danger">منصة أخدمني</h5>
+                    <p>أخدمني هي منصة خدمات اجتماعية تساعدك في تنظيم وإدارة المناسبات والفعاليات بسهولة واحترافية.</p>
+                    <button href="#" class="btn btn-danger mt-2" style="color: white; " asp-action="JoinAsProvider" asp-controller="ServiceProvider">اعرف أكثر</button>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("provider"))
+                        {
+
+                        }
+                        else
+                        {
+                            @if (User.IsInRole("customer "))
+                            {
+                                <button class="btn btn-danger mt-2">
+                                    <a asp-action="JoinAsProvider" asp-controller="ServiceProvider" style="color: white; " >
+                                        انضمام كمزود خدمة
+                                    </a>
+                                </button>
+                            }
+                        }
+                    }
+
+                </div>
+
+                <!-- القسم الثاني: الروابط السريعة -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-danger">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-action="index" asp-controller="Home" class="text-white nav-link">🏠 الرئيسية</a></li>
+                        <li><a asp-action="index" asp-controller="Marrige" class="text-white nav-link">🎉 حفلات الأعراس</a></li>
+                        <li><a asp-action="index" asp-controller="Graduation" class="text-white nav-link">🎓 حفلات التخرج</a></li>
+                        <li><a asp-action="index" asp-controller="Tourism" class="text-white nav-link">🏝️ السياحة والترفيه</a></li>
+                        <li><a asp-action="Blog" asp-controller="Blog" class="text-white nav-link">📜 المدونة</a></li>
+                    </ul>
+                </div>
+
+                <!-- القسم الثالث: خدمات الدعم والمساعدة -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-danger">الدعم والمساعدة</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-action="Policy" asp-controller="Home" class="text-white nav-link">🔹 سياسة الخصوصية</a></li>
+                        <li><a asp-action="index" asp-controller="Home" class="text-white nav-link">🔹 شروط الاستخدام</a></li>
+                        <li><a asp-action="index" asp-controller="Home" class="text-white nav-link">🔹 الأسئلة الشائعة</a></li>
+                        <li><a asp-action="Contact" asp-controller="ContactUsModels" class="text-white nav-link">🔹 تواصل معنا</a></li>
+                    </ul>
+                </div>
+
+                <!-- القسم الرابع: تواصل معنا -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-danger">تواصل معنا</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-envelope text-danger ml-2"></i> servme@gmail.com</li>
+                        <li><i class="fa fa-phone text-danger ml-2"></i> +966 123 456 789</li>
+                        <li><i class="fa fa-map-marker text-danger ml-2"></i> المكلا - الشحر - غيل باوزير</li>
+                    </ul>
+                    <!-- أزرار تسجيل الدخول والخروج -->
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <!-- المستخدم غير مسجل دخول -->
+                        <div class="mt-3">
+                            <button class="btn btn-danger mt-2"><a asp-area="Identity" asp-page="/Account/Login" style="color: white; ">تسجيل الدخول </a></button>
+                            <button class="btn btn-danger mt-2"><a asp-area="Identity" asp-page="/Account/Register" style="color: white; ">تسجيل جديد </a></button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <!-- خط فاصل -->
+            <hr class="bg-secondary my-4">
+
+            <!-- وسائل التواصل الاجتماعي -->
+            <div class="row text-center mt-3">
+                <div class="col-md-12">
+                    <p class="mb-2">تابعنا على وسائل التواصل الاجتماعي</p>
+                    <a href="#" class="ml-3 text-white"><i class="fa fa-facebook fa-lg"></i></a>
+                    <a href="#" class="ml-3 text-white"><i class="fa fa-twitter fa-lg"></i></a>
+                    <a href="#" class="ml-3 text-white"><i class="fa fa-instagram fa-lg"></i></a>
+                    <a href="#" class="ml-3 text-white"><i class="fa fa-youtube fa-lg"></i></a>
+                </div>
+            </div>
+
+            <!-- حقوق النشر -->
+            <div class="row text-center mt-3">
+                <div class="col-md-12">
+                    <p class="mb-0">&copy; 2025 جميع الحقوق محفوظة | <a href="#" class="text-danger">أخدمني</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
+    <script src="~/vendor/aos/aos.js"></script>
+    <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="~/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS File -->
+    <script src="~/js/main.js"></script>
+    <script>
+    function openSearch() {
+    document.getElementById("search-overlay").style.display = "block";
+    }
+
+    function closeSearch() {
+    document.getElementById("search-overlay").style.display = "none";
+    }
+    </script>
+    <script>
+        document.getElementById('userActions').addEventListener('change', function () {
+            if (this.value === 'logout') {
+                if (confirm("هل تريد تسجيل الخروج؟")) {
+                    document.getElementById('logoutForm').submit();
+                } else {
+                    this.value = '';
+                }
+            }else if(this.value === 'settings'){
+                document.getElementById('profile').submit();
+            }else {
+                    this.value = '';
+                }
+        });
+    </script>
+    <script>
+        // لفتح نافذة البوب-أب عند النقر على زر "تسجيل الدخول"
+        document.getElementById('showLoginPopup').addEventListener('click', function() {
+            var popupContainer = document.getElementById('popupContainer');
+            popupContainer.classList.add('show');
+
+            // إغلاق نافذة البوب-أب عند النقر على الخلفية
+            var popupOverlay = document.getElementById('popupOverlay');
+            popupOverlay.addEventListener('click', function() {
+                popupContainer.classList.remove('show');
+            });
+        });
+    </script>
+
+    @RenderSection("script", false);
+
+
+ 
+</body>
+</html>

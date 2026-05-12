@@ -1,0 +1,59 @@
+﻿@model List<SERVE_ME_PROJECT.Models.ServiceModel>
+@{
+    ViewData["Title"] = "نتائج البحث";
+    Layout = "_LayoutServeMe";
+
+}
+
+<style>
+    .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.card-text {
+    color: #333;
+}
+
+</style>
+
+<h2 class="text-center my-4">نتائج البحث</h2>
+
+@if (!Model.Any())
+{
+    <p class="text-center text-danger">لا توجد نتائج مطابقة</p>
+}
+else
+{
+    <div class="container">
+        @foreach (var service in Model)
+        {
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <!-- صورة الخدمة -->
+                    <div class="col-md-4">
+                        <img src="@Url.Content(service.Images.FirstOrDefault()?.ImagePath != null
+                ? $"~/img/{service.Images.FirstOrDefault().ImagePath}"
+                : "~/img/35f16b7f-827d-4df2-87f9-67696de3ea1e.png")"
+                             class="img-fluid rounded-start"
+                             alt="@service.Name" style="height:180px" />
+                    </div>
+
+
+                    <!-- تفاصيل الخدمة -->
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@service.Name</h5>
+                            <p class="card-text">
+                                @service.Description?.Substring(0, Math.Min(service.Description.Length, 150))...
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">السعر: @service.Price.ToString("N0") ريال</small>
+                            </p>
+                            <a href="@Url.Action("Details_Services", "Graduation", new { id = service.Id })" class="btn btn-primary">عرض التفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,53 @@
+﻿@model SERVE_ME_PROJECT.Models.ServiceModel
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container">
+    <h2 class="text-center my-4">@Model.Name</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <strong>الوصف:</strong>
+                <p>@Model.Description</p>
+            </div>
+
+            <div class="mb-3">
+                <strong>المدينة:</strong> @Model.City.Name
+            </div>
+
+            <div class="mb-3">
+                <strong>التصنيف:</strong> @Model.Category.Name
+            </div>
+
+            <div class="mb-3">
+                <strong>نوع الخدمة:</strong> @Model.TypeService.Name
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row">
+                @foreach (var img in Model.Images)
+                {
+                    <div class="col-4 mb-3">
+                        <img src="@img.ImagePath" class="d-block w-100 img-fluid rounded" style="height: 300px; object-fit: cover;" alt="Service Image" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Approve", "ServiceProviderModels", new { id = Model.Id })" class="btn btn-success mx-2">
+            موافقة
+        </a>
+        <a href="@Url.Action("Reject", "ServiceProviderModels", new { id = Model.Id })" class="btn btn-danger mx-2">
+            رفض
+        </a>
+        <a asp-action="PendingServices" class="btn btn-secondary mx-2">
+            رجوع
+        </a>
+    </div>
+</div>

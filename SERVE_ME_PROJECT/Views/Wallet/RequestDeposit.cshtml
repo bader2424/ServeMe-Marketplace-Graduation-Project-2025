@@ -1,0 +1,94 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmDepositRequest
+
+@{
+    ViewData["Title"] = "طلب إيداع أموال";
+    Layout = "_LayoutServeMe";
+}
+
+
+<div class="deposit-request-container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>طلب إيداع أموال</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="RequestDeposit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Amount" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="Amount" class="form-control" />
+                        <span class="input-group-text">ر.ي</span>
+                    </div>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+
+@*                 <div class="form-group mb-3">
+                    <label asp-for="SelectedBank" class="form-label"></label>
+                    <select asp-for="SelectedBank" class="form-select"
+                            asp-items="@(new SelectList(Model.AvailableBanks, "Id", "Name"))">
+                        <option value="">-- اختر البنك --</option>
+                    </select>
+                    <span asp-validation-for="SelectedBank" class="text-danger"></span>
+                </div> *@
+
+                <div class="form-group mb-3">
+                    <label asp-for="TransactionReference" class="form-label"></label>
+                    <input asp-for="TransactionReference" class="form-control" />
+                    <span asp-validation-for="TransactionReference" class="text-danger"></span>
+                    <small class="text-muted">رقم المرجع الموجود في إيصال التحويل</small>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="DepositProofImage" class="form-label"></label>
+                    <input asp-for="DepositProofImage" type="file" class="form-control" accept="image/*" />
+                    <span asp-validation-for="DepositProofImage" class="text-danger"></span>
+                    <small class="text-muted">يجب أن تكون الصورة واضحة وتظهر تفاصيل التحويل</small>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> إرسال الطلب
+                    </button>
+                    <a asp-action="Dashboard" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> رجوع
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="instructions mt-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h4>تعليمات الإيداع</h4>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>قم بإجراء التحويل البنكي إلى الحساب التالي: <strong>SA03 8000 0000 6080 1020 4999</strong></li>
+                    <li>احتفظ بصورة واضحة لإيصال التحويل</li>
+                    <li>املأ النموذج أعلاه بالمعلومات المطلوبة</li>
+                    <li>سيتم إضافة المبلغ إلى رصيدك خلال 24 ساعة عمل بعد المراجعة</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .deposit-request-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .instructions {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+        }
+    </style>
+}
+

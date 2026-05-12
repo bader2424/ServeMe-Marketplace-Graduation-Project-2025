@@ -1,0 +1,398 @@
+﻿@using SERVE_ME_PROJECT.ViewModel;
+@model VmServices
+
+
+@{
+	Layout = "_LayoutServices";
+	var catalogController = ViewBag.CatalogController as string ?? "Graduation";
+}
+<br/>
+<style>
+	.align-middle-custom
+	{
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.fixed-img-container
+
+	{
+		width: 100%; /* أو قيمة ثابتة مثل 250px */
+		height: 200px; /* ارتفاع ثابت */
+		background-color: #fff; /* خلفية بيضاء */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.fixed-img-container img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain; /* احتواء بدون قص */
+	}
+
+	.fixed-card {
+		height: 400px; /* اضبط هذا حسب ما يناسبك */
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 10px;
+		box-shadow: 0 0 10px #ccc;
+		background-color: #fff;
+		border-radius: 8px;
+	}
+
+	.fixed-img-container {
+		width: 100%;
+		height: 200px;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.fixed-img-container img 
+	{
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+
+
+</style>
+<!-- SECTION  BANNER -->
+
+@if (Model.BannerModel != null && Model.BannerModel.Any())
+{
+    <div id="bannerCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner" >
+            @for (int i = 0; i < Model.BannerModel.Count; i++)
+            {
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+					<img src="@Url.Content("~/img/" + Model.BannerModel[i].UrlImage)" class="d-block w-100 rounded" alt="@Model.BannerModel[i].Title" style="max-height: 500px; object-fit: cover;" />
+                    @* <div class="carousel-caption d-none d-md-block">
+                        <h5>@Model.BannerModel[i].Title</h5>
+                    </div> *@
+                </div>
+            }
+        </div>
+		<button class="carousel-control-prev align-middle-custom" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">السابق</span>
+		</button>
+		<button class="carousel-control-next align-middle-custom" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">التالي</span>
+		</button>
+
+    </div>
+}
+
+<!-- /SECTION -->
+
+
+<!-- SECTION     الخدمات -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<div class="row">
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">  الخدمات</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							<li class="active"><a data-toggle="tab" href="#tab1" >مطاعم</a></li>
+							<li><a data-toggle="tab" href="#tab2">فنادق</a></li>
+							<li><a data-toggle="tab" href="#tab3">فنانين</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /section title -->
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab   -->
+						<div id="tab1" class="tab-pane active">
+							<div class="products-slick" data-nav="#slick-nav-1">
+								@foreach (var item in ViewBag.Category1)
+								{
+									<div class="product fixed-card">
+										<div class="product-img fixed-img-container">
+											<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+										</div>
+
+
+										<div class="product-body">
+											<p class="product-category">@item.Service.Name</p>
+											<h4 class="product-price">  @item.Service.Price</h4>
+											<h3 class="product-name">كيس ارز  </h3>
+										</div>
+										<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+											<i class="fa fa-shopping-cart"></i> التفاصيل
+										</a>
+									
+
+
+									</div>
+										 
+								}
+	
+							</div>
+						</div>
+						<!-- /tab   -->
+						<!-- tab   -->
+						<div id="tab2" class="tab-pane">
+							<div class="products-slick" data-nav="#slick-nav-2">
+								@foreach (var item in ViewBag.Category2)
+								{
+									<div class="product fixed-card">
+										<div class="product-img fixed-img-container">
+											<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+										</div>
+										<div class="product-body">
+											<p class="product-category">     @item.Service.Name</p>
+											<h4 class="product-price">@item.Service.Price</h4>
+											<h3 class="product-name">سعر اليوم	</h3>
+										</div>
+										<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+											<i class="fa fa-shopping-cart"></i> التفاصيل
+										</a>
+									</div>
+								}
+							</div>
+						</div>
+						<!-- /tab   -->
+						<!-- tab   -->
+						<div id="tab3" class="tab-pane">
+							<div class="products-slick" data-nav="#slick-nav-3">
+								@foreach (var item in ViewBag.Category3)
+								{
+									<div class="product fixed-card">
+										<div class="product-img fixed-img-container">
+											<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+										</div>
+										<div class="product-body">
+											<p class="product-category">@item.Service.Name</p>
+											<h4 class="product-price"> @item.Service.Price</h4>
+											<h3 class="product-name">سعر السهرة 	</h3>
+										</div>
+										<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+											<i class="fa fa-shopping-cart"></i> التفاصيل
+										</a>
+									</div>
+								}
+							</div>
+						</div>
+						<!-- /tab   -->
+					</div>
+				</div>
+			</div>
+			<!-- /Products tab & slick -->
+		</div>
+	</div>
+</div>
+<!-- /SECTION -->
+<!-- SECTION     الخدمات -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<div class="row">
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">  الخدمات</h3>
+					<div class="section-nav">
+						<ul class="section-tab-nav tab-nav">
+							<li class="active"><a data-toggle="tab" href="#tab4">قاعات</a></li>
+							<li><a data-toggle="tab" href="#tab5">مصورين</a></li>
+							<li><a data-toggle="tab" href="#tab6">هدايا </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /section title -->
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab   -->
+						<div id="tab4" class="tab-pane active">
+							<div class="products-slick" data-nav="#slick-nav-1">
+								@foreach (var item in ViewBag.Category4)
+								{
+									<div class="product fixed-card">
+										<div class="product-img fixed-img-container">
+											<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@item.Service.Name</p>
+											<h4 class="product-price">  @item.Service.Price</h4>
+											<h3 class="product-name">  سعر الفترة الواحدة  </h3>
+										</div>
+										<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+											<i class="fa fa-shopping-cart"></i> التفاصيل
+										</a>
+									</div>
+								}
+
+							</div>
+						</div>
+						<!-- /tab   -->
+						<!-- tab   -->
+						<div id="tab5" class="tab-pane">
+							<div class="products-slick" data-nav="#slick-nav-2">
+								@foreach (var item in ViewBag.Category5)
+								{
+									<div class="product fixed-card">
+										<div class="product-img fixed-img-container">
+											<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+										</div>
+										<div class="product-body">
+											<p class="product-category">@item.Service.Name</p>
+											<h4 class="product-price">@item.Service.Price</h4>
+											<h3 class="product-name">سعر الساعة</h3>
+										</div>
+										<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+											<i class="fa fa-shopping-cart"></i> التفاصيل
+										</a>
+									</div>
+
+								}
+							</div>
+						</div>
+						<!-- /tab   -->
+						<!-- tab   -->
+						<div id="tab6" class="tab-pane">
+							<div class="products-slick" data-nav="#slick-nav-3">
+								@foreach (var item in ViewBag.Category6)
+								{
+									<div class="product fixed-card">
+										<div class="product-img fixed-img-container">
+											<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+										</div>
+										<div class="product-body">
+											<p class="product-category">@item.Service.Name</p>
+											<h4 class="product-price"> @item.Service.Price</h4>
+											<h3 class="product-name">سعر الهدية 	</h3>
+										</div>
+										<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+											<i class="fa fa-shopping-cart"></i> التفاصيل
+										</a>
+									</div>
+								}
+			
+							</div>
+						</div>
+						<!-- /tab   -->
+					</div>
+				</div>
+			</div>
+			<!-- /Products tab & slick -->
+		</div>
+	</div>
+</div>
+<!-- /SECTION -->
+<!-- SECTION  الخدمات -->
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-6">
+
+				<div class="section-title">
+					<h4 class="title">فرق تنظيم</h4>
+					<div class="section-nav">
+						<div id="slick-nav-4" class="products-slick-nav"></div>
+					</div>
+				</div>
+				<div class="products-widget-slick" data-nav="#slick-nav-4">
+					<div>
+						@foreach (var item in ViewBag.Category7)
+						{
+							<div class="product fixed-card">
+								<div class="product-img fixed-img-container">
+									<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.Service.Name</p>
+									<h4 class="product-price"> @item.Service.Price</h4>
+									<h3 class="product-name">سعر المناسبة   	</h3>
+								</div>
+								<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+									<i class="fa fa-shopping-cart"></i> التفاصيل
+								</a>
+							</div>
+						}
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">مشاغل خياطة  </h4>
+					<div class="section-nav">
+						<div id="slick-nav-5" class="products-slick-nav"></div>
+					</div>
+				</div>
+				<div class="products-widget-slick" data-nav="#slick-nav-5">
+					<div>
+						@foreach (var item in ViewBag.Category8)
+						{
+							<div class="product fixed-card">
+								<div class="product-img fixed-img-container">
+									<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.Service.Name</p>
+									<h4 class="product-price"> @item.Service.Price</h4>
+									<h3 class="product-name">سعر الثوب </h3>
+								</div>
+								<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+									<i class="fa fa-shopping-cart"></i> التفاصيل
+								</a>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">مشاغل خياطة  </h4>
+					<div class="section-nav">
+						<div id="slick-nav-5" class="products-slick-nav"></div>
+					</div>
+				</div>
+
+				<div class="products-widget-slick" data-nav="#slick-nav-5">
+					<div>
+						@foreach (var item in ViewBag.Category8)
+						{
+							<div class="product fixed-card">
+								<div class="product-img fixed-img-container">
+									<img src="@Url.Content(item.ImagePath ?? "~/images/default.jpg")" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@item.Service.Name</p>
+									<h4 class="product-price"> @item.Service.Price</h4>
+									<h3 class="product-name">سعر الثوب </h3>
+								</div>
+								<a class="add-to-cart-btn" href="@Url.Action("Details_Services", catalogController, new { id = item.Service.Id })">
+									<i class="fa fa-shopping-cart"></i> التفاصيل
+								</a>
+							</div>
+						}
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- /SECTION -->

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SERVE_ME_PROJECT.Models.BannerModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+
+}
+
+<h1>   عرض الصور الاعلانية</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">  اضافة صورة اعلانية</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>الصورة الاعلانية            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    <img src="/img/@item.UrlImage" height="70" />
+            </td>
+            <td>
+                    <a asp-action="Edit" class="status-btn success" asp-route-id="@item.Id">تعديل</a> |
+                    <a asp-action="Details" class="status-btn waiting" asp-route-id="@item.Id">التفاصيل</a> |
+                    <a asp-action="Delete" class="status-btn fail" asp-route-id="@item.Id">حذف</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

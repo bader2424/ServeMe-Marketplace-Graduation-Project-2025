@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_LayoutProvid";
+
+}
+
+<!-- Section: الطلبات -->
+<section class="requests-section">
+    <h2>الطلبات</h2>
+    <label for="filter-status">تصفية الطلبات حسب الحالة:</label>
+    <select id="filter-status" onchange="filterRequests()">
+        <option value="all">الكل</option>
+        <option value="success">ناجحة</option>
+        <option value="waiting">في الانتظار</option>
+        <option value="fail">فاشلة</option>
+    </select>
+    <table class="requests-table">
+        <thead>
+            <tr>
+                <th>رقم الطلب</th>
+                <th>اسم العميل</th>
+                <th>الحالة</th>
+                <th>التاريخ</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody id="requests-body">
+            <tr data-status="success">
+                <td>123</td>
+                <td>العميل 1</td>
+                <td><span class="status-text success">ناجحة</span></td>
+                <td>2024-10-20</td>
+                <td>
+                    <button class="status-btn success" onclick="updateStatus(this, 'success')">ناجحة</button>
+                    <button class="status-btn waiting" onclick="updateStatus(this, 'waiting')">في الانتظار</button>
+                    <button class="status-btn fail" onclick="updateStatus(this, 'fail')">فاشلة</button>
+                </td>
+            </tr>
+            <tr data-status="success">
+                <td>123</td>
+                <td>العميل 1</td>
+                <td><span class="status-text success">ناجحة</span></td>
+                <td>2024-10-20</td>
+                <td>
+                    <button class="status-btn success" onclick="updateStatus(this, 'success')">ناجحة</button>
+                    <button class="status-btn waiting" onclick="updateStatus(this, 'waiting')">في الانتظار</button>
+                    <button class="status-btn fail" onclick="updateStatus(this, 'fail')">فاشلة</button>
+                </td>
+            </tr>
+            <tr data-status="success">
+                <td>123</td>
+                <td>العميل 1</td>
+                <td><span class="status-text success">ناجحة</span></td>
+                <td>2024-10-20</td>
+                <td>
+                    <button class="status-btn success" onclick="updateStatus(this, 'success')">ناجحة</button>
+                    <button class="status-btn waiting" onclick="updateStatus(this, 'waiting')">في الانتظار</button>
+                    <button class="status-btn fail" onclick="updateStatus(this, 'fail')">فاشلة</button>
+                </td>
+            </tr>
+            <tr data-status="success">
+                <td>123</td>
+                <td>العميل 1</td>
+                <td><span class="status-text success">ناجحة</span></td>
+                <td>2024-10-20</td>
+                <td>
+                    <button class="status-btn success" onclick="updateStatus(this, 'success')">ناجحة</button>
+                    <button class="status-btn waiting" onclick="updateStatus(this, 'waiting')">في الانتظار</button>
+                    <button class="status-btn fail" onclick="updateStatus(this, 'fail')">فاشلة</button>
+                </td>
+            </tr>
+            <tr data-status="waiting">
+                <td>124</td>
+                <td>العميل 2</td>
+                <td><span class="status-text waiting">في الانتظار</span></td>
+                <td>2024-10-21</td>
+                <td>
+                    <button class="status-btn success" onclick="updateStatus(this, 'success')">ناجحة</button>
+                    <button class="status-btn waiting" onclick="updateStatus(this, 'waiting')">في الانتظار</button>
+                    <button class="status-btn fail" onclick="updateStatus(this, 'fail')">فاشلة</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+ 

@@ -1,0 +1,19 @@
+﻿@model int
+@{
+    ViewData["Title"] = "تأكيد قبول الطلب";
+    Layout = "_LayoutProvid";
+}
+
+<h2 class="text-center mt-4">تأكيد قبول الطلب</h2>
+
+<div class="alert alert-warning text-center mt-4">
+    <strong>تنبيه:</strong> عند قبول الطلب سيتم تحويل المبلغ إلى محفظتك ولن تتمكن من التراجع!
+</div>
+
+<form asp-action="AcceptOrder" method="post" class="text-center">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model" />
+
+    <button type="submit" class="btn btn-success btn-lg px-5">نعم، أقبل الطلب</button>
+    <a asp-action="ServiceRequests" class="btn btn-secondary btn-lg px-5 ml-3">إلغاء</a>
+</form>

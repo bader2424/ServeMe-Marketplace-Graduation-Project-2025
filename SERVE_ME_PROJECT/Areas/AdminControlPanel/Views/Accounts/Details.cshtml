@@ -1,0 +1,54 @@
+﻿@using SERVE_ME_PROJECT.Areas.AdminControlPanel.ViewModels
+@model UserWithRolesViewModel
+
+@{
+    ViewData["Title"] = "تفاصيل المستخدم";
+    Layout = "_LayoutAdmin";
+
+}
+
+<h2>تفاصيل المستخدم</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">الاسم الكامل:</dt>
+            <dd class="col-sm-9">@Model.User.FullName</dd>
+
+            <dt class="col-sm-3">اسم المستخدم (UserName):</dt>
+            <dd class="col-sm-9">@Model.User.UserName</dd>
+
+            <dt class="col-sm-3">البريد الإلكتروني:</dt>
+            <dd class="col-sm-9">@Model.User.Email</dd>
+
+            <dt class="col-sm-3">المدينة:</dt>
+            <dd class="col-sm-9">@Model.User.City</dd>
+
+            <dt class="col-sm-3">حالة الحساب:</dt>
+            <dd class="col-sm-9">
+                @if (Model.User.IsActive)
+                {
+                        <span class="text-success">مفعل</span>
+                }
+                else
+                {
+                        <span class="text-danger">معطل</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">الأدوار (Roles):</dt>
+            <dd class="col-sm-9">
+                @if (Model.Roles != null && Model.Roles.Count > 0)
+                {
+                    @string.Join(", ", Model.Roles)
+                }
+                else
+                {
+                        <span>لا يوجد أدوار</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">عودة</a>

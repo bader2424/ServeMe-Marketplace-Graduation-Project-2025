@@ -1,0 +1,48 @@
+﻿@using SERVE_ME_PROJECT.Areas.AdminControlPanel.ViewModels
+@model ChangeUserTypeViewModel
+
+@{
+    ViewData["Title"] = "تغيير نوع المستخدم";
+}
+
+<h2>تغيير نوع المستخدم</h2>
+
+<div class="card p-4">
+    <form asp-action="ChangeUserType" method="post">
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="mb-3">
+            <label>الاسم الكامل:</label>
+            <input type="text" class="form-control" value="@Model.FullName" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label>الأدوار الحالية:</label>
+            <input type="text" class="form-control" value="@(Model.CurrentRoles != null && Model.CurrentRoles.Count > 0 ? string.Join(", ", Model.CurrentRoles) : "لا يوجد أدوار")" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label for="SelectedRole">اختر نوع المستخدم الجديد:</label>
+            @Html.DropDownListFor(model => model.SelectedRole,
+                     new SelectList(Model.AllRoles),
+                     "اختر النوع",
+                     new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SelectedRole)
+        </div>
+
+        <button type="submit" class="btn btn-primary">تحديث النوع</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">إلغاء</a>
+    </form>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}

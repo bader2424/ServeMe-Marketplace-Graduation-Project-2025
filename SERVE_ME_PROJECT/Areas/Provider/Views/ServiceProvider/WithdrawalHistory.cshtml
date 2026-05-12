@@ -1,0 +1,112 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmProviderWithdrawalHistory
+
+@{
+    ViewData["Title"] = "سجل طلبات السحب";
+    Layout = "_LayoutProvid";
+}
+
+<div class="provider-withdrawal-history">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>سجل طلبات السحب</h3>
+                <a asp-action="RequestWithdrawal" class="btn btn-light btn-sm">
+                    <i class="fas fa-plus"></i> طلب سحب جديد
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.Withdrawals.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>رقم الطلب</th>
+                                <th>تاريخ الطلب</th>
+                                <th>المبلغ</th>
+                                <th>الحالة</th>
+                                <th>البنك</th>
+                                <th>رقم الحساب</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var withdrawal in Model.Withdrawals)
+                            {
+                                <tr>
+                                    <td>@withdrawal.WithdrawalRequestId</td>
+                                    <td>@withdrawal.RequestDate.ToString("yyyy/MM/dd")</td>
+                                    <td>@withdrawal.Amount.ToString("N2") ر.ي</td>
+                                    <td>
+                                        <span class="badge @GetStatusBadgeClass(withdrawal.Status)">
+                                            @withdrawal.Status
+                                        </span>
+                                    </td>
+                                    <td>@withdrawal.BankName</td>
+                                    <td>@withdrawal.AccountNumber</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @if (Model.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="WithdrawalHistory" asp-route-page="@(Model.CurrentPage - 1)">
+                                    السابق
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="WithdrawalHistory" asp-route-page="@i">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.CurrentPage < Model.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="WithdrawalHistory" asp-route-page="@(Model.CurrentPage + 1)">
+                                    التالي
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> لا توجد طلبات سحب سابقة
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning",
+            "Approved" => "bg-success",
+            "Rejected" => "bg-danger",
+            "Completed" => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+}
+
+@section Styles {
+    <style>
+        .provider-withdrawal-history {
+            padding: 20px;
+        }
+    </style>
+}

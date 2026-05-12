@@ -1,0 +1,141 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "_LayoutServeMe";
+}
+
+<style>
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 15px;
+        background: #f2f2f2;
+        min-height: 100vh;
+        direction: rtl;
+        font-family: 'Tahoma', sans-serif;
+    }
+
+    .auth-card {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        max-width: 900px;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-side {
+        flex: 1;
+        padding: 30px;
+        background-color: #ffffff;
+    }
+
+    .info-side {
+        flex: 1;
+        background: linear-gradient(to right, #0223a5, #010d48);
+        color: white;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+        .info-side h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+    .btn-outline-light {
+        border-color: #fff;
+        color: #fff;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #ffffff;
+            color: #4C6DF0;
+            border-color: #ffffff;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .btn-primary {
+        background-color: #4C6DF0;
+        border-color: #4C6DF0;
+    }
+
+        .btn-primary:hover {
+            background-color: #3a5bcc;
+            border-color: #3a5bcc;
+        }
+
+    a {
+        color: #4C6DF0;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="card-container">
+    <div class="auth-card">
+        <!-- الجهة اليمنى: نموذج تسجيل الدخول -->
+        <div class="form-side">
+            <form id="account" method="post">
+                <h2 class="mb-4 text-center">تسجيل الدخول</h2>
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input asp-for="Input.RememberMe" class="form-check-input" />
+                        <label asp-for="Input.RememberMe" class="form-check-label">
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">تسجيل الدخول</button>
+
+                <div class="form-group mt-3 text-center">
+                    <a id="forgot-password" asp-page="./ForgotPassword">هل نسيت كلمة المرور؟</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- الجهة اليسرى: محتوى توجيهي -->
+        <div class="info-side">
+            <h2 style="color:white">مرحبًا بعودتك!</h2>
+            <p>أدخل بياناتك الشخصية لاستخدام جميع ميزات الموقع.</p>
+            <p>إذا لم يكن لديك حساب، يرجى إنشاء حساب أولاً.</p>
+            <a class="btn btn-outline-light mt-3" asp-area="Identity" asp-controller="Account" asp-action="Register">إنشاء حساب</a>
+        </div>
+    </div>
+</div>
+
+

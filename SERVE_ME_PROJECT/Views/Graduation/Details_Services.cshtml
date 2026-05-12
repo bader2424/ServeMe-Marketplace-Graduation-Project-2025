@@ -1,0 +1,188 @@
+﻿@model SERVE_ME_PROJECT.Models.ServiceModel
+@{
+    Layout = "_LayoutServices";
+    var catalogController = ViewBag.CatalogController as string ?? "Graduation";
+}
+
+<!-- روابط Slick Carousel و Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<section class="py-5 bg-light" dir="rtl">
+    <div class="container">
+        <div class="row justify-content-center text-end">
+            <div class="col-lg-10 col-xl-9">
+
+                <!-- عرض تفاصيل الخدمة -->
+                <div class="bg-white rounded shadow p-4 p-md-5 mb-5">
+                    <div class="row g-4 align-items-center">
+
+                        <!-- صور -->
+                        <div class="col-md-6">
+                            <div class="slick-carousel">
+                                @if (Model.Images != null && Model.Images.Any())
+                                {
+                                    foreach (var image in Model.Images)
+                                    {
+                                        <div>
+                                            <img src="@Url.Content(image.ImagePath ?? "~/images/default.jpg")" class="img-fluid rounded w-100" alt="صورة الخدمة">
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div>
+                                        <img src="~/images/default.jpg" class="img-fluid rounded w-100" alt="صورة الخدمة">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- تفاصيل -->
+                        <div class="col-md-6">
+                            <div class="px-3 text-end">
+                                <h2 class="fw-bold mb-4 fs-2">@Model.Name</h2>
+                                <h3 class="text-success mb-3 fs-3">@Model.Price.ToString("C")</h3>
+                                <p class="text-muted fs-5">@Model.Description</p>
+                                <!-- نموذج الطلب -->
+                                <form asp-action="Order" asp-controller="Service" method="post">
+                                    <input type="hidden" name="serviceId" value="@Model.Id" />
+                                    <!-- الحقول الخاصة بالتأجير -->
+                                    @if (Model.TypeServiceId==2)
+                                    {
+                                        <div class="mb-3">
+                                            <label class="form-label">تاريخ بدء التأجير:</label>
+                                            <input type="date" name="rentalStartDate" class="form-control" required />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">عدد الأيام:</label>
+                                            <input type="number" name="rentalDays" class="form-control" min="1" required />
+                                            <!-- بدلاً من عدد الأيام، يمكن استخدام تاريخ الانتهاء -->
+                                            <!-- <input type="date" name="rentalEndDate" class="form-control" /> -->
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <!-- الكمية -->
+                                        <div class="mb-3">
+                                            <label class="form-label">الكمية المطلوبة:</label>
+                                            <input type="number" name="quantity" class="form-control" value="1" min="1" required />
+                                        </div>
+                                    }
+
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary btn-lg px-4">تأكيد الطلب</button>
+                                    </div>
+                                </form>
+
+                                <!-- زر منتجات مشابهة -->
+                                <div class="text-center mt-3">
+                                    <a class="btn btn-outline-secondary"
+                                       asp-action="Services"
+                                       asp-controller="@catalogController"
+                                       asp-route-categoryId="@Model.CategoryId">
+                                        منتجات مشابهة
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- قسم التعليقات -->
+                <div class="bg-white rounded shadow p-4 p-md-5">
+
+                    <h4 class="mb-4 text-center">أضف تعليقك</h4>
+                    <form class="review-form mb-5" method="post" asp-action="AddComment" asp-controller="@catalogController">
+                        <input type="hidden" name="UserId" value="@User.Identity.Name" />
+                        <input type="hidden" name="serviceId" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <textarea class="form-control" name="content" rows="4" placeholder="تعليقك" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">تقييمك:</label>
+                            <div class="input-rating text-end">
+                                <div class="stars">
+                                    <input id="star5" name="rating" value="5" type="radio" required><label for="star5"></label>
+                                    <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+                                    <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+                                    <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+                                    <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-success btn-lg px-4" type="submit">إرسال</button>
+                        </div>
+                    </form>
+
+                    <!-- عرض التعليقات -->
+                    <h4 class="mb-3">التعليقات:</h4>
+                    @if (Model.Comments != null && Model.Comments.Any())
+                    {
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <div class="card mb-3 text-end">
+                                <div class="card-body">
+                                    <h5 class="card-title">@comment.User.UserName</h5>
+                                    <p class="card-text">@comment.Content</p>
+                                    <div class="stars">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <i class="bi @(i <= comment.RatingValue ? "bi-star-fill text-warning" : "bi-star text-muted")"></i>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">لا توجد تعليقات على هذه الخدمة.</p>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.slick-carousel').slick({
+            rtl: true,
+            dots: true,
+            arrows: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            adaptiveHeight: true
+        });
+    });
+</script>
+
+<style>
+    .stars input[type="radio"] {
+        display: none;
+    }
+
+    .stars label {
+        font-size: 2rem;
+        color: lightgray;
+        cursor: pointer;
+    }
+
+    .stars input:checked ~ label,
+    .stars input:hover ~ label {
+        color: gold;
+    }
+</style>

@@ -1,0 +1,36 @@
+﻿@model List<ServiceProviderModel>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+<h2>طلبات الانضمام كمزود خدمة</h2>
+ 
+    <button class="  btn-primary  " style="width:200px ">
+        <a asp-area="AdminControlPanel" asp-controller="ServiceProviderModels" asp-action="Index" style="color:white ">عرض جميع مزودي الخدمات</a>
+    </button>
+ 
+<table class="table">
+    <thead>
+        <tr>
+            <th>المستخدم</th>
+            <th>التاريخ</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var req in Model)
+        {
+            <tr>
+                <td>@req.User.Email</td>
+                <td>@req.JoinDate</td>
+                <td>
+                    <form asp-action="ApproveProvider" method="post">
+                        <input type="hidden" name="requestId" value="@req.Id" />
+                        <button class="btn status-btn success">قبول</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

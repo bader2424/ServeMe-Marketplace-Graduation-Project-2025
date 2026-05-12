@@ -1,0 +1,41 @@
+﻿@model SERVE_ME_PROJECT.Models.ContactUsModel
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Delete";
+}
+
+<h1>حذف الرسالة </h1>
+
+ <div>
+     <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">الاسم        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">الايميل        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">العنوان         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">الرسالة        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+        <dt class = "col-sm-2">تاريخ الارسال         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SentDate)
+        </dd>
+    </dl>
+
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف " class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-outline-primary">العودة للقائمة </a>
+    </form>
+</div>

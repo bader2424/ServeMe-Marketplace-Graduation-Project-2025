@@ -1,0 +1,235 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - نظام إدارة الموقع</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SERVE_ME_PROJECT.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/Admin/css/controlPanelForAdmin.css">
+    <link rel="stylesheet" href="~/provider/css/controlPanalForServeiceProvider.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+        }
+
+        /* الهيدر */
+        header {
+            background-color: #111827;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0; /* ✅ اجعل الهيدر يغطي كامل الصفحة */
+            z-index: 1000;
+            border-bottom: 1px solid #374151;
+        }
+
+        .header-title {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-details {
+            text-align: right;
+        }
+
+            .user-details span {
+                display: block;
+                font-size: 14px;
+            }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logout-btn {
+            background-color: #ef4444;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .logout-btn:hover {
+                background-color: #dc2626;
+            }
+
+        /* السايدبار */
+        .sidebar {
+            width: 240px;
+            background-color: #1f2937; /* غامق متناسق مع الهيدر */
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            padding-top: 80px;
+            border-left: 1px solid #374151;
+        }
+
+            .sidebar ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .sidebar ul li a {
+                    display: block;
+                    padding: 15px 20px;
+                    color: #d1d5db;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    font-size: 15px;
+                    border-bottom: 1px solid #374151;
+                }
+
+                    /* هنا التعديل الجديد */
+                    .sidebar ul li a:hover,
+                    .sidebar ul li a.active {
+                        background-color: #facc15; /* أصفر فاتح */
+                        color: #111827; /* الكتابة تبقى داكنة */
+                        border-right: 4px solid #facc15; /* خط أصفر */
+                    }
+
+                    .sidebar ul li a i {
+                        margin-left: 10px;
+                    }
+
+        /* المحتوى */
+        .main-content {
+            margin-right: 240px;
+            margin-top: 70px;
+            padding: 20px;
+            background-color: #ffffff;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* استجابة للموبايل */
+        media (max-width: 768px) {
+            .sidebar
+
+        {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+
+        header {
+            left: 0;
+        }
+
+        .main-content {
+            margin: 0;
+            margin-top: 70px;
+        }
+
+    
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <ul>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-chart-bar"></i> الإحصائيات
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="Typeservice" asp-action="Dashboard">
+                    <i class="fas fa-wallet"></i> طلبات شحن المحفظة
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="Typeservice" asp-action="ManageWithdrawals">
+                    <i class="fas fa-money-bill-wave"></i> طلبات سحب الأموال
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="ServiceProviderModels" asp-action="Requests">
+                    <i class="fas fa-user-cog"></i> طلبات مزودي الخدمات
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="ServiceProviderModels" asp-action="PendingServices">
+                    <i class="fas fa-tools"></i> إدارة الخدمات
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="Accounts" asp-action="Index">
+                    <i class="fas fa-users"></i> إدارة الحسابات
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="ContactUs" asp-action="Index">
+                    <i class="fas fa-envelope"></i> تواصل معنا
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="BlogModels" asp-action="Index">
+                    <i class="fas fa-blog"></i> إدارة المدونات
+                </a>
+            </li>
+            <li>
+                <a asp-area="AdminControlPanel" asp-controller="Home" asp-action="Dashboard">
+                    <i class="fas fa-cogs"></i> لوحة التحكم
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <header>
+        <h1 class="header-title">لوحة التحكم - نظام إدارة الموقع</h1>
+        <div class="user-info">
+            <div class="user-details">
+                <span>مرحباً، @ViewBag.ProviderFullName</span>
+                <span>@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</span>
+            </div>
+            <img src="@ViewBag.ProviderImage" alt="ايقونة" />
+            <form asp-area="default" asp-controller="Home" asp-action="Index" method="post"  >
+                <button type="submit" class="btn">
+                    <a style="color:white">  الصفحة الرئيسية </a>
+                    <img src="~/generalimges/logo2.png" class="img-fluid" alt="">
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <main>
+            @RenderBody()
+        </main>
+    </div>
+    @RenderSection("Styles", required: false)
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/controlPanelForAdmin.js"></script>
+</body>
+</html>

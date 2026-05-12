@@ -1,0 +1,26 @@
+﻿@model List<SERVE_ME_PROJECT.Models.ServiceModel>
+@{
+    ViewData["Title"] = "تفاصيل الخدمة";
+    Layout = "_LayoutProvid";
+}
+<div class="container mt-5" dir="rtl">
+    <h2 class="mb-4 text-primary fw-bold border-bottom pb-2">الخدمات التي تحتوي على تعليقات</h2>
+
+    <div class="row">
+        @foreach (var service in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark fw-semibold">@service.Name</h5>
+                        <p class="card-text text-muted">عدد التعليقات: @service.Comments.Count</p>
+                        <a href="@Url.Action("ServiceDetailsWithComments", new { id = service.Id })" class="btn btn-primary w-100 rounded-pill">
+                            عرض التفاصيل
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

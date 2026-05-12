@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SERVE_ME_PROJECT.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>   معلومات الموقع</h1>
+
+<p>
+    <a asp-action="Create">إضافة مستخدم </a>
+</p>
+<table class="table">
+    <thead >
+        <tr>
+            <th> اسم المستخدم            </th>
+            <th>
+               @*  @Html.DisplayNameFor(model => model.FullName) *@
+            </th>
+            <th> رقم الهاتف                 </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders)
+            </th>
+            <th> الايميل </th>
+            <th> النشيط             </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+@*                     @Html.DisplayFor(modelItem => item.FullName)
+ *@                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Orders)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="status-btn success" asp-route-id="@item.Id"> تعديل</a> |
+                    <a asp-action="Details" class="status-btn waiting" asp-route-id="@item.Id">التفاصيل</a> |
+                    <a asp-action="Delete" class="status-btn fail" asp-route-id="@item.Id">حذف </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SERVE_ME_PROJECT.Models.ServiceModel>
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Index";
+}
+
+<h1> عرض الخدمات    </h1>
+
+ 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeServiceId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <th>
+                    @Html.DisplayFor(modelItem => item.Name)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.Description)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.Price)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.TypeServiceId)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.CityId)
+            </th>
+            <th>
+                    @Html.DisplayFor(modelItem => item.UserId)
+            </th>
+        </tr>
+}
+    </tbody>
+</table>

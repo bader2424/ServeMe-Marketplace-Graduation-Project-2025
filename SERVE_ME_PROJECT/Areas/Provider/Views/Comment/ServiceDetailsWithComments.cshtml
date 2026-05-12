@@ -1,0 +1,40 @@
+﻿@model ServiceModel
+
+@{
+    ViewData["Title"] = "تفاصيل الخدمة";
+    Layout = "_LayoutProvid";
+}
+<div class="container mt-5" dir="rtl">
+    <!-- كرت تفاصيل الخدمة -->
+    <div class="card mb-4 shadow border-0 rounded-4">
+        <div class="card-body">
+            <h2 class="card-title text-primary fw-bold">@Model.Name</h2>
+            <p class="card-text text-dark">@Model.Description</p>
+        </div>
+    </div>
+
+    <!-- كرت التعليقات -->
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h5 class="mb-0 fw-bold">التعليقات على الخدمة</h5>
+        </div>
+        <div class="card-body bg-light">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var comment in Model.Comments.OrderByDescending(c => c.CommentDate))
+                    {
+                        <li class="list-group-item bg-white">
+                            <p class="mb-1 text-dark">@comment.Content</p>
+                            <small class="text-muted">بتاريخ: @comment.CommentDate.ToString("yyyy-MM-dd HH:mm")</small>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">لا توجد تعليقات على هذه الخدمة حتى الآن.</p>
+            }
+        </div>
+    </div>
+</div>

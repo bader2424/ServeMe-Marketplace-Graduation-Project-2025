@@ -1,0 +1,146 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmProviderWalletDashboard
+
+@{
+    ViewData["Title"] = "لوحة تحكم المحفظة";
+    Layout = "_LayoutProvid";
+}
+
+<div class="provider-wallet-dashboard">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card balance-card mb-4">
+                <div class="card-body text-center">
+                    <h3 class="card-title">رصيدك الحالي</h3>
+                    <div class="balance-amount">@Model.Balance.ToString("N2") ر.ي</div>
+                    <a asp-action="RequestWithdrawal" class="btn btn-primary mt-3">
+                        <i class="fas fa-money-bill-wave"></i> طلب سحب
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card earnings-card mb-4">
+                <div class="card-body text-center">
+                    <h3 class="card-title">أرباح هذا الشهر</h3>
+                    <div class="earnings-amount">@Model.MonthlyEarnings.ToString("N2") ر.ي</div>
+                    <a asp-action="EarningsHistory" class="btn btn-outline-primary mt-3">
+                        <i class="fas fa-history"></i> سجل الأرباح
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card stats-card mb-4">
+                <div class="card-body text-center">
+                    <h3 class="card-title">إحصائيات</h3>
+                    <div class="stats-item">
+                        <span>إجمالي الأرباح:</span>
+                        <span>@Model.TotalEarnings.ToString("N2") ر.ي</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>طلبات سحب معلقة:</span>
+                        <span>@Model.PendingWithdrawals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card transactions-card mt-4">
+        <div class="card-header">
+            <h4>آخر الحركات المالية</h4>
+        </div>
+        <div class="card-body">
+            @if (Model.RecentTransactions.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>النوع</th>
+                                <th>المبلغ</th>
+                                <th>الوصف</th>
+                                <th>الخدمة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in Model.RecentTransactions)
+                            {
+                                <tr>
+                                    <td>@transaction.TransactionDate.ToString("yyyy/MM/dd")</td>
+                                    <td>@transaction.TransactionType.Name</td>
+                                    <td class="@(transaction.TransactionType.IsCredit ? "text-success" : "text-danger")">
+                                        @(transaction.TransactionType.IsCredit ? "+" : "-") @transaction.Amount.ToString("N2") ر.ي
+                                    </td>
+                                    <td>@transaction.Description</td>
+                                    <td>
+                                        @if (transaction.Order?.Service != null)
+                                        {
+                                            <a asp-controller="Services" asp-action="Details" asp-route-id="@transaction.Order.Service.Id">
+                                                @transaction.Order.Service.Name
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-3">
+                    <a asp-action="EarningsHistory" class="btn btn-outline-primary">
+                        عرض جميع الحركات
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> لا توجد حركات مالية حديثة
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .provider-wallet-dashboard {
+            padding: 20px;
+        }
+
+        .balance-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+        }
+
+        .earnings-card {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-radius: 10px;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+            border-radius: 10px;
+        }
+
+        .balance-amount, .earnings-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transactions-card {
+            border-radius: 10px;
+        }
+    </style>
+}

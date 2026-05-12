@@ -1,0 +1,116 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmAdminDeposits
+
+@{
+    ViewData["Title"] = "إدارة طلبات الإيداع";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="admin-manage-deposits">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">إدارة طلبات الإيداع - @Model.CurrentStatus</h4>
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown">
+                        تغيير الحالة
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach (var status in Model.StatusList)
+                        {
+                            <li>
+                                <a class="dropdown-item @(status == Model.CurrentStatus ? "active" : "")"
+                                   asp-action="ManageDeposits" asp-route-status="@status">
+                                    @status
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.Deposits.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>رقم الطلب</th>
+                                <th>المستخدم</th>
+                                <th>المبلغ</th>
+                                <th>تاريخ الطلب</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var deposit in Model.Deposits)
+                            {
+                                <tr>
+                                    <td>#@deposit.DepositRequestId</td>
+                                    <td>@deposit.User?.FullName</td>
+                                    <td>@deposit.Amount.ToString("N2") ر.ي</td>
+                                    <td>@deposit.RequestDate.ToString("yyyy/MM/dd")</td>
+                                    <td>
+                                        <a asp-action="DepositDetails" asp-route-id="@deposit.DepositRequestId"
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i> تفاصيل
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @if (Model.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="ManageDeposits"
+                                   asp-route-status="@Model.CurrentStatus"
+                                   asp-route-page="@(Model.CurrentPage - 1)">
+                                    السابق
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="ManageDeposits"
+                                   asp-route-status="@Model.CurrentStatus"
+                                   asp-route-page="@i">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.CurrentPage < Model.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="ManageDeposits"
+                                   asp-route-status="@Model.CurrentStatus"
+                                   asp-route-page="@(Model.CurrentPage + 1)">
+                                    التالي
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> لا توجد طلبات إيداع بحالة "@Model.CurrentStatus"
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .admin-manage-deposits {
+            padding: 20px;
+        }
+    </style>
+}

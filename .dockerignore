@@ -1,0 +1,14 @@
+**/.git
+**/.vs
+**/bin
+**/obj
+**/node_modules
+**/TestResults
+**/*.user
+**/*.suo
+**/*.log
+**/wwwroot/uploads/deposit_proofs/*
+**/wwwroot/uploads/deposits/*
+Dockerfile
+docker-compose*.yml
+README.md

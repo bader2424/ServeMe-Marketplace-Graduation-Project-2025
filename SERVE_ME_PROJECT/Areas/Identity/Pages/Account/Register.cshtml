@@ -1,0 +1,108 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_LayoutServeMe";
+}
+
+
+<style>
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 15px;
+        background: #f2f2f2;
+        min-height: 100vh;
+    }
+
+    .auth-card {
+        display: flex;
+        width: 100%;
+        max-width: 900px;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .form-side {
+        flex: 1;
+        padding: 30px;
+        background-color: #ffffff;
+    }
+
+    .info-side {
+        flex: 1;
+        background: linear-gradient(to right, #0223a5, #010d48);
+        color: white;
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+</style>
+<div class="card-container" dir="rtl">
+    <div class="auth-card">
+        <!-- الجهة اليمنى: نموذج التسجيل -->
+        <div class="form-side">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+                <h2 class="mb-4 text-center">إنشاء حساب جديد</h2>
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Input.FullName"></label>
+                    <input asp-for="Input.FullName" class="form-control" />
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.ProfileImage"></label>
+                    <input type="file" asp-for="Input.ProfileImage" class="form-control" />
+                    <span asp-validation-for="Input.ProfileImage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.PhoneNumber"></label>
+                    <input asp-for="Input.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.City"></label>
+                    <input asp-for="Input.City" class="form-control" />
+                    <span asp-validation-for="Input.City" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">تسجيل</button>
+            </form>
+        </div>
+
+        <!-- الجهة اليسرى: محتوى توجيهي -->
+        <div class="info-side text-center">
+            <h2 style="color:white">مرحبًا بك!</h2>
+            <p>إذا كان لديك حساب مسبقًا، يمكنك تسجيل الدخول مباشرة من هنا.</p>
+            <a class="btn btn-outline-light mt-3" asp-area="Identity" asp-controller="Account" asp-action="Login">تسجيل الدخول</a>
+        </div>
+    </div>
+</div>
+

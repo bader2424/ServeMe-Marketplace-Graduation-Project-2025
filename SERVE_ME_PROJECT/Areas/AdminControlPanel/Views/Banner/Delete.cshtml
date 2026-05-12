@@ -1,0 +1,25 @@
+﻿@model SERVE_ME_PROJECT.Models.BannerModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "_LayoutAdmin";
+
+}
+
+ 
+<h3>هل أنت متاكد من حذف هذا العنصر ؟</h3>
+<div>
+     <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">مرجع الصورة         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UrlImage)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete ">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف " class="btn btn-danger" />  
+        <a asp-action="Index" class="btn btn-outline-primary">العودة للقائمة </a>
+    </form>
+</div>

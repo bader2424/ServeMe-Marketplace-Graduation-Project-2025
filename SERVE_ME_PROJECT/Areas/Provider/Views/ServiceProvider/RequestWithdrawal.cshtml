@@ -1,0 +1,103 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmProviderWithdrawalRequest
+
+@{
+    ViewData["Title"] = "طلب سحب أموال";
+    Layout = "_LayoutProvid";
+}
+
+<div class="provider-withdrawal-request">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3>طلب سحب أموال</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="RequestWithdrawal" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="alert alert-info mb-4">
+                    <div class="d-flex justify-content-between">
+                        <span><strong>الرصيد المتاح:</strong> @Model.CurrentBalance.ToString("N2") ر.ي</span>
+                        <span><strong>الحد الأدنى للسحب:</strong> @Model.MinWithdrawalAmount.ToString("N0") ر.ي</span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Amount" class="form-label">المبلغ المطلوب سحبه</label>
+                    <div class="input-group">
+                        <input asp-for="Amount" class="form-control" 
+                               min="@Model.MinWithdrawalAmount" 
+                               max="@Model.MaxWithdrawalAmount" />
+                        <span class="input-group-text">ر.ي</span>
+                    </div>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                    <small class="text-muted">يجب أن يكون المبلغ بين @Model.MinWithdrawalAmount.ToString("N0") و @Model.MaxWithdrawalAmount.ToString("N0") ر.ي</small>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AccountHolderName" class="form-label">اسم صاحب الحساب كما هو مسجل في البنك</label>
+                    <input asp-for="AccountHolderName" class="form-control" />
+                    <span asp-validation-for="AccountHolderName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="SelectedBank" class="form-label">البنك المحول إليه</label>
+                    <select asp-for="SelectedBank" class="form-select" asp-items="@(new SelectList(Model.AvailableBanks, "Id", "Name"))">
+                        <option value="">-- اختر البنك --</option>
+                    </select>
+                    <span asp-validation-for="SelectedBank" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AccountNumber" class="form-label">رقم الحساب البنكي (IBAN)</label>
+                    <input asp-for="AccountNumber" class="form-control" placeholder="SAxxxxxxxxxxxxxxxxxxxx" />
+                    <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="BranchCode" class="form-label">رمز الفرع (إن وجد)</label>
+                    <input asp-for="BranchCode" class="form-control" />
+                    <span asp-validation-for="BranchCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> تقديم طلب السحب
+                    </button>
+                    <a asp-action="Dashboard" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> رجوع
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-light">
+            <h4>تعليمات السحب</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">1. الحد الأدنى للسحب هو 100 ريال سعودي</li>
+                <li class="list-group-item">2. سيتم تحويل المبلغ خلال 48 ساعة عمل بعد الموافقة على الطلب</li>
+                <li class="list-group-item">3. يجب أن يكون الحساب البنكي مسجلًا باسمك</li>
+                <li class="list-group-item">4. لاستفسارات السحب يرجى التواصل مع الدعم الفني</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+        <style>
+            .provider-withdrawal-request {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+        </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

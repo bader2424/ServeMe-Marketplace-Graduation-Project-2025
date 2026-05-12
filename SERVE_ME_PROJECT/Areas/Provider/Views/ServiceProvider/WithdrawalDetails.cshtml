@@ -1,0 +1,179 @@
+﻿@model SERVE_ME_PROJECT.Models.WithdrawalRequest
+@{
+    ViewData["Title"] = "تفاصيل طلب السحب";
+    Layout = "_LayoutProvid";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-file-invoice-dollar me-2"></i>تفاصيل طلب السحب #@Model.WithdrawalRequestId
+                        </h4>
+                        <span class="badge @GetStatusBadge(Model.Status) fs-6">
+                            @Model.Status
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <!-- معلومات الطلب الأساسية -->
+                    <div class="withdrawal-info-card mb-4 p-4 border rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="far fa-calendar-alt me-2"></i>تاريخ الطلب
+                                    </h6>
+                                    <p class="fs-5">@Model.RequestDate.ToString("yyyy/MM/dd - hh:mm tt")</p>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="fas fa-money-bill-wave me-2"></i>المبلغ المطلوب
+                                    </h6>
+                                    <p class="fs-5 text-danger fw-bold">@Model.Amount.ToString("N2") ر.ي</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="fas fa-check-circle me-2"></i>تاريخ المعالجة
+                                    </h6>
+                                    <p class="fs-5">
+                                        @(Model.ProcessedDate.HasValue ? Model.ProcessedDate.Value.ToString("yyyy/MM/dd") : "قيد المراجعة")
+                                    </p>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="fas fa-university me-2"></i>البنك المستلم
+                                    </h6>
+                                    <p class="fs-5">@Model.BankName</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تفاصيل الحساب البنكي -->
+                    <div class="bank-details-card mb-4 p-4 border rounded">
+                        <h5 class="border-bottom pb-2 mb-3">
+                            <i class="fas fa-piggy-bank me-2"></i>معلومات الحساب البنكي
+                        </h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-sm-5">اسم صاحب الحساب:</dt>
+                                    <dd class="col-sm-7">@Model.AccountHolderName</dd>
+
+                                    <dt class="col-sm-5">رقم الحساب:</dt>
+                                    <dd class="col-sm-7">@Model.AccountNumber</dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-sm-5">رمز الفرع:</dt>
+                                    <dd class="col-sm-7">@(string.IsNullOrEmpty(Model.BranchCode) ? "غير محدد" : Model.BranchCode)</dd>
+
+                                    <dt class="col-sm-5">تفاصيل إضافية:</dt>
+                                    <dd class="col-sm-7">@Model.BankAccountDetails</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- أزرار التنقل -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="WithdrawalHistory" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-right me-1"></i>العودة للسجل
+                        </a>
+
+                        @if (Model.Status == "Pending")
+                        {
+                            <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                <i class="fas fa-times-circle me-1"></i>إلغاء الطلب
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal إلغاء الطلب -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">تأكيد الإلغاء</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>هل أنت متأكد من رغبتك في إلغاء طلب السحب هذا؟</p>
+                <form asp-action="CancelWithdrawal" method="post">
+                    <input type="hidden" name="id" value="@Model.WithdrawalRequestId" />
+                    <div class="form-group mb-3">
+                        <label for="cancelReason" class="form-label">سبب الإلغاء (اختياري)</label>
+                        <textarea class="form-control" id="cancelReason" name="cancelReason" rows="3"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">تراجع</button>
+                        <button type="submit" class="btn btn-danger">تأكيد الإلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning",
+            "Approved" => "bg-info",
+            "Completed" => "bg-success",
+            "Rejected" => "bg-danger",
+            "Cancelled" => "bg-secondary",
+            _ => "bg-light text-dark"
+        };
+    }
+}
+
+@section Styles {
+    <style>
+        .withdrawal-info-card {
+            background-color: #f8f9fa;
+        }
+
+        .bank-details-card {
+            background-color: #f0f8ff;
+        }
+
+        .info-item h6 {
+            font-size: 0.9rem;
+        }
+
+        .info-item p {
+            margin-bottom: 0;
+        }
+
+        .admin-notes {
+            border-right: 4px solid #ffc107;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // يمكن إضافة أي scripts خاصة بالصفحة هنا
+    </script>
+}

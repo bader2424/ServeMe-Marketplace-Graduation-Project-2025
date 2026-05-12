@@ -1,0 +1,18 @@
+﻿
+@model SERVE_ME_PROJECT.Models.OrderModel
+@{
+    Layout = "_LayoutServeMe";
+}
+<h2>تفاصيل الطلب رقم @Model.Id</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>الخدمة:</strong> @Model.Service?.Name</p>
+        <p><strong>الكمية:</strong> @Model.Quantity</p>
+        <p><strong>السعر:</strong> @Model.Price.ToString("0.00")</p>
+        <p><strong>التاريخ:</strong> @Model.OrderDate.ToString("yyyy-MM-dd HH:mm")</p>
+        <p><strong>الحالة:</strong> @Model.OrderStat?.Name</p>
+    </div>
+</div>
+
+<a asp-action="MyOrders" class="btn btn-secondary mt-3">العودة للطلبات</a>

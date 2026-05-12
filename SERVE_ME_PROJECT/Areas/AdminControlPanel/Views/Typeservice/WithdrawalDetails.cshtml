@@ -1,0 +1,106 @@
+﻿@model SERVE_ME_PROJECT.Models.WithdrawalRequest
+
+@{
+    ViewData["Title"] = "تفاصيل طلب السحب";
+        Layout = "_LayoutAdmin";
+}
+
+<div class="admin-withdrawal-details">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">تفاصيل طلب السحب #@Model.WithdrawalRequestId</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">مقدم الخدمة:</dt>
+                        <dd class="col-sm-8">@Model.Provider?.FullName</dd>
+
+                        <dt class="col-sm-4">البريد الإلكتروني:</dt>
+                        <dd class="col-sm-8">@Model.Provider?.Email</dd>
+
+                        <dt class="col-sm-4">المبلغ:</dt>
+                        <dd class="col-sm-8">@Model.Amount.ToString("N2") ر.ي</dd>
+
+                        <dt class="col-sm-4">تاريخ الطلب:</dt>
+                        <dd class="col-sm-8">@Model.RequestDate.ToString("yyyy/MM/dd HH:mm")</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">الحالة:</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge @GetStatusBadge(Model.Status)">
+                                @Model.Status
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-4">تاريخ المعالجة:</dt>
+                        <dd class="col-sm-8">@(Model.ProcessedDate?.ToString("yyyy/MM/dd HH:mm") ?? "لم تتم المعالجة بعد")</dd>
+
+                        <dt class="col-sm-4">البنك:</dt>
+                        <dd class="col-sm-8">@Model.BankName</dd>
+
+                        <dt class="col-sm-4">رقم الحساب:</dt>
+                        <dd class="col-sm-8">@Model.AccountNumber</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h5>معلومات الحساب البنكي</h5>
+                    <div class="bank-details p-3 bg-light rounded">
+                        <p><strong>اسم صاحب الحساب:</strong> @Model.AccountHolderName</p>
+                        <p><strong>رقم الحساب:</strong> @Model.AccountNumber</p>
+                        <p><strong>رمز الفرع:</strong> @(string.IsNullOrEmpty(Model.BranchCode) ? "غير محدد" : Model.BranchCode)</p>
+                        <p><strong>تفاصيل إضافية:</strong> @Model.BankAccountDetails</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    @if (Model.Status == "Pending")
+                    {
+                        <form asp-action="ProcessWithdrawal" method="post">
+                            <input type="hidden" name="id" value="@Model.WithdrawalRequestId" />
+
+                            <div class="form-group mb-3">
+                                <label for="adminNotes" class="form-label">ملاحظات المشرف</label>
+                                <textarea id="adminNotes" name="adminNotes" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" name="action" value="approve" class="btn btn-success">
+                                    <i class="fas fa-check"></i> قبول الطلب
+                                </button>
+                                <button type="submit" name="action" value="reject" class="btn btn-danger">
+                                    <i class="fas fa-times"></i> رفض الطلب
+                                </button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mt-3">
+                            تم معالجة هذا الطلب بالفعل.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "Approved" => "badge-success",
+            "Rejected" => "badge-danger",
+            "Pending" => "badge-warning",
+            _ => "badge-secondary"
+        };
+    }
+}

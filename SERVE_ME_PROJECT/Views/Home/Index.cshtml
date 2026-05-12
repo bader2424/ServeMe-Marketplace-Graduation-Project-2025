@@ -1,0 +1,482 @@
+﻿@using SERVE_ME_PROJECT.ViewModel;
+@model VmLandng
+@{
+    Layout = "_LayoutServeMe";
+}
+
+<!-- Hero Section -->
+<section id="hero" class="hero section">
+
+    <div class="container">
+        <div class="row gy-4">
+            @foreach (var gental in Model.GeneralSettingsModel)
+            {
+                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1 style="text-align: right; direction: rtl;" data-aos="fade-up"> @gental.SiteName</h1>
+                    <br />
+                    <p style="text-align: right; direction: rtl;" data-aos="fade-up" data-aos-delay="100">@gental.SiteDescription</p>
+
+                    <div class="d-flex flex-column flex-md-row" data-aos="fade-up" data-aos-delay="200">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Register" class="btn-get-started">انضم الينا<i class="bi bi-arrow-right"></i></a>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+                    <img src="/img/@gental.SiteLogo" class="img-fluid animated" alt="servmeLogo" style="height:200px">
+                </div>
+            }            
+
+        </div>
+    </div>
+
+</section><!-- /Hero Section -->
+
+<!-- About Section -->
+<section id="about" class="about section">
+
+    <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+
+            <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="content">
+                    <h3 style="text-align: right; direction: rtl;" >من نحن</h3>
+                    <h2 style="text-align: right; direction: rtl;" >
+                        أخدمني منصة خدمات اجتماعية
+
+                    </h2>
+                    <p style="text-align: right; direction: rtl;" >
+                        أخدمني هي منصه مختصه في ربط مزودي الخدمه مع المستهلك لنتمكن من خدمتك بكافة التفاصيل المطلوبة حيث يمكن للمستهلك تصفح جميع الخدمات المقدمة لتنظيم مناسبتة والتواصل مع مقدمي الخدمة بكل سهولة  بمكان واحد مع خيارات الخدمات المتعددة
+
+                    </p>
+
+                    <h2 style="text-align: right; direction: rtl;" >
+                        رؤيتنا
+                    </h2>  
+
+
+                    <p style="text-align: right; direction: rtl;" >
+                        أن نكون من المبادرين في اتخاذ القرارات لمحافظة حضرموت ، عند تقديم منصه مختصه بربط مزودي الخدمات بالعملاء دون التأثير سلبًا على الجودة العالية أو الفائدة المقدَّمة لعملائنا
+
+
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                <img src="~/serveme/assets/img/logo2.png" class="img-fluid" alt="">
+            </div>
+
+        </div>
+    </div>
+
+</section><!-- /About Section -->
+
+<!-- Values Section -->
+<section id="values" class="values section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>خدماتنا</h2>
+        <p>  خدمات  منصة أخدمني<br></p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card">
+                    <img src="~/serveme/assets/img/sp.jpg" class="img-fluid" alt="">
+                    <h3>الأتفاق مع مزودي الخدمة</h3>
+                </div>
+            </div><!-- End Card Item -->
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card">
+                    <img src="~/serveme/assets/img/sw.jpg" class="img-fluid" alt="">
+                    <h3>تنسيق حفلات الأعراس والتخرج </h3>
+                </div>
+            </div><!-- End Card Item -->
+
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card">
+                    <img src="~/serveme/assets/img/swidimg.jpg" class="img-fluid" alt="">
+                    <h3> التخطيط للسياحة والترفيه</h3>
+                </div>
+            </div><!-- End Card Item -->
+            <!-- Portfolio Section -->
+</section><!-- /Values Section -->
+
+<!-- Features Section -->
+<section id="features" class="features section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>مميزاتنا</h2>
+        <p>مميزات منصة أخدمني<br></p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+        <div class="row gy-5">
+
+            <div class="col-xl-6" data-aos="zoom-out" data-aos-delay="100">
+                <img src="~/serveme/assets/img/features.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-xl-6 d-flex">
+                <div class="row align-self-center gy-4">
+
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <h3 style="text-align: right; direction: rtl;" >منصة حضرمية لمديريات الغيل -الشحر -المكلا</h3>
+                        </div>
+                    </div><!-- End Feature Item -->
+
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <h3 style="text-align: right; direction: rtl;" >عرض خدمات مزودين الخدمة</h3>
+                        </div>
+                    </div><!-- End Feature Item -->
+
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <h3 style="text-align: right; direction: rtl;" >خدمة عملاء مميزة</h3>
+                        </div>
+                    </div><!-- End Feature Item -->
+
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+                        <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <h3 style="text-align: right; direction: rtl;" >يمكن للمستهلك تنظيم مناسبتة بنفسة بكل سهولة </h3>
+                        </div>
+                    </div><!-- End Feature Item -->
+
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
+                        <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <h3style="text-align: right; direction: rtl;" >الأمان والمؤثقية</h3style>
+                        </div>
+                    </div><!-- End Feature Item -->
+
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="700">
+                        <div class="feature-box d-flex align-items-center">
+                            <i class="bi bi-check"></i>
+                            <h3 style="text-align: right; direction: rtl;" >عرض الخدمات الاجتماعية الكترونيا</h3>
+                        </div>
+                    </div><!-- End Feature Item -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Faq Section -->
+<section id="faq" class="faq section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>أسئلة شائعة</h2>
+        <p>معرفة المزيد حول منصة أخدمني</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="faq-container">
+
+                    <div class="faq-item faq-active">
+                        <h3>.          كيف يمكنني أن أستفيد منصة أخدمني ؟     </h3>
+                        <div class="faq-content">
+                            <p style="text-align: right; direction: rtl;" >
+                                يمكنك الاستفادة من منصة أخدمني من خلال تصفح الخدمات المعروضة والبحث عن الخدمة التي تناسب أهتمامك اذا كنت عميل في المنصة .اذا كنت مزود خدمة يمكنك الاستفادة من منصة أخدمني عن طريق الاتفاق معنا لعرض خدماتك للعملاء
+
+
+                            </p>
+                        </div>
+                        <i class="faq-toggle bi bi-chevron-right"></i>
+                    </div><!-- End Faq item-->
+
+                    <div class="faq-item">
+                        <h3>.          هل منصة أخدمني توفر خدماتها لجميع المديريات في حضرموت؟      </h3>
+                        <div class="faq-content">
+                            <p style="text-align: right; direction: rtl;" >
+                                نسعى جاهدين لذلك ونأمل ان نقدم نجاح في مديريات حضرموت و الغيل والشحر والمكلا لتزيد فرصتنا بتوسيع المنصة للمحافظات الاخرى
+
+                            </p>
+                        </div>
+                        <i class="faq-toggle bi bi-chevron-right"></i>
+                    </div><!-- End Faq item-->
+
+                    <div class="faq-item">
+                        <h3>.          كيف سيضمن منصة أخدمني حقوقي؟        </h3>
+                        <div class="faq-content">
+                            <p style="text-align: right; direction: rtl;" >
+                                موقع خدمات اجتماعية يضمن لك حقوقك بشكل كامل، كن مطمئنا عند شراء أي خدمة معروضة في الموقع، يقوم خدمات اجتماعية بدور الوسيط بين المشتري والبائع ويحمي حقوق الطرفين المالية في حال الالتزام بشروط منصة أخدمني وبنود الضمانع.
+
+                            </p>
+                        </div>
+                        <i class="faq-toggle bi bi-chevron-right"></i>
+                    </div><!-- End Faq item-->
+
+                </div>
+
+            </div><!-- End Faq Column-->
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+
+                <div class="faq-container">
+
+                    <div class="faq-item">
+                        <h3>.           ماذا سيحدث عند حجز الخدمات المعروضة في منصة أخدمني ؟</h3>
+                        <div class="faq-content">
+                            <p style="text-align: right; direction: rtl;">
+                                ستصلك رسالة بريدية لتأكيد عملية الشراء، وستتمكن من التواصل المباشر مع البائع ضمن صفحة الطلب. بعد قيام البائع بتنفيذ وتسليم الخدمة يمكنك تقييمها حتى يستفيد بقية المشترين من تجربتك، وفي حال تأخر البائع عن مدة تنفيذ الطلب الموضحة أو عدم التزامه بالوصف المحدد للخدمة يمكنك الاتصال بمركز المساعدةا.
+
+                            </p>
+                        </div>
+                        <i class="faq-toggle bi bi-chevron-right"></i>
+                    </div><!-- End Faq item-->
+
+                    <div class="faq-item">
+                        <h3> .               كيف يمكنني التسجيل كا مزود خدمة ؟      </h3>
+                        <div class="faq-content">
+                            <p style="text-align: right; direction: rtl;">
+                                بكل ببساطة تنشئ حساب كا مزود خدمة وتدخل المعلومات المطلوبةبعد قراءة ضمان الحقوق وشروط الاستخدام ثم فريقنا سيتواصل معك
+
+                            </p>
+                        </div>
+                        <i class="faq-toggle bi bi-chevron-right"></i>
+                    </div><!-- End Faq item-->
+
+                    <div class="faq-item">
+                        <h3> .          ماذا لو لم أكن راضيا عن مستوى الخدمة المقدمة ؟      </h3>
+                        <div class="faq-content">
+                            <p style="text-align: right; direction: rtl;">
+                                في حال عدم رضاك عن الخدمة المستلمة يمكنك طلب التعديلات عليها من البائع، وفي حال كانت الخدمة المستلمة دون الجودة الموضحة في وصف الخدمة عندلا تتردد في التواصل بشكل مباشر مع خدمة العملاء عن طريق مركز المساعدة.
+
+                            </p>
+                        </div>
+                        <i class="faq-toggle bi bi-chevron-right"></i>
+                    </div><!-- End Faq item-->
+
+                </div>
+
+            </div><!-- End Faq Column-->
+
+        </div>
+
+    </div>
+
+</section><!-- /Faq Section -->
+
+
+<!-- Team Section -->
+<section id="team" class="team section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>فريق العمل</h2>
+        <p>فريق منصة أخدمني</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="~/serveme/assets/img/team/temw (1).jpg" class="img-fluid" alt="">
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter-x"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4>منار خالد باخريبه</h4>
+                        <span>كلية الهندسة والبترول</span>
+
+                    </div>
+                </div>
+            </div><!-- End Team Member -->
+
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="~/serveme/assets/img/team/teamm.jpg" class="img-fluid" alt="">
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter-x"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4>بدر اسماعيل باحشوان</h4>
+                        <span>  كلية الهندسة والبترول</span>
+                    </div>
+                </div>
+            </div><!-- End Team Member -->
+
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="~/serveme/assets/img/team/teamm.jpg" class="img-fluid" alt="">
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter-x"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4>عبدالله محمد بن سعد</h4>
+                        <span>كلية الهندسة والبترول </span>
+                    </div>
+                </div>
+            </div><!-- End Team Member -->
+
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="~/serveme/assets/img/team/teamm.jpg" class="img-fluid" alt="">
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter-x"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h4>عبدالرحمن ربيع بن عبيد اللاه</h4>
+                        <span>كلية الهندسة والبترول</span>
+                    </div>
+                </div>
+            </div><!-- End Team Member -->
+        </div>
+    </div>
+</section><!-- /Team Section -->
+
+<!-- Clients Section -->
+<section id="clients" class="clients section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>مزودي الخدمة</h2>
+        <p>مزودي منصة أخدمني<br></p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+             <script type="application/json" class="swiper-config">
+                {
+                "loop": true,
+                "speed": 600,
+                "autoplay": {
+                "delay": 5000
+                },
+                "slidesPerView": "auto",
+                "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+                },
+                "breakpoints": {
+                "320": {
+                "slidesPerView": 2,
+                "spaceBetween": 40
+                },
+                "480": {
+                "slidesPerView": 3,
+                "spaceBetween": 60
+                },
+                "640": {
+                "slidesPerView": 4,
+                "spaceBetween": 80
+                },
+                "992": {
+                "slidesPerView": 6,
+                "spaceBetween": 120
+                }
+                }
+                }
+            </script> 
+
+            <div class="swiper-wrapper align-items-center">
+                @foreach(var servprov in Model.ServiceProviderModel)
+                {
+                    <div class="swiper-slide">
+                        <img src="~/img/@servprov.Logo" class="img-fluid" alt="@servprov.NameShop" style="height:100px">
+                        <img src="~/img/755672cf-3549-42a7-8c09-589c9fc4e587.jpg" class="img-fluid" alt="" style="height:100px">
+                     </div>
+                }
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+
+</section><!-- /Clients Section -->
+<!-- Recent Posts Section -->
+<section id="recent-posts" class="recent-posts section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>المدونة</h2>
+        <p>مدونات منصة أخدمني</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+        <div class="row gy-5">
+            @foreach (var blog in Model.BlogModel)
+            {
+                <div class="col-xl-4 col-md-6">
+                    <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="post-img position-relative overflow-hidden">
+                            <img src="/img/@blog.ImgUrl" class="img-fluid" alt="" style="height:200px">
+                            <span class="post-date">@blog.SentDate.ToString("yyyy/MM/dd")</span>
+                        </div>
+
+                        <div class="post-content d-flex flex-column" style="padding: 10px 10px" dir="rtl">
+                            <h3 class="post-title">@blog.Title</h3>
+                        </div>
+
+                        <div style="padding: 20px 20px">
+                            <a href="@Url.Action("Details_Blog", new { id = blog.Id })" class="btn btn-danger">
+                                <span>أقرأ المزيد</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End post item -->
+            }
+        </div>
+
+        <!-- زر عرض الكل -->
+        <div class="text-center mt-4">
+            <a asp-action="Blog" asp-controller="Blog" class="btn btn-outline-primary">
+                عرض جميع التدوينات <i class="bi bi-journal-text"></i>
+            </a>
+        </div>
+
+    </div>
+
+</section>
+<!-- /Recent Posts Section -->

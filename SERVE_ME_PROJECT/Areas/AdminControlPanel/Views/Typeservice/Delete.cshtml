@@ -1,0 +1,25 @@
+﻿@model SERVE_ME_PROJECT.Models.TypeserviceModel
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Delete";
+}
+
+<h1>حذف نوع خدمة </h1>
+
+ 
+<div>
+     <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">اسم نوع الخدمة         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف " class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-outline-primary">العودة للقائمة </a>
+    </form>
+</div>

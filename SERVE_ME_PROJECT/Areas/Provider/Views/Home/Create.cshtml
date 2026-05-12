@@ -1,0 +1,51 @@
+﻿
+@model ServiceModel
+@{
+    ViewData["Title"] = "إضافة خدمة جديدة";
+    Layout = "_LayoutProvid";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label>عنوان الخدمة</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>وصف الخدمة</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>المدينة</label>
+        <select asp-for="CityId" asp-items="ViewBag.Cities" class="form-select"></select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>التصنيف</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>نوع الخدمة</label>
+        <select asp-for="TypeServiceId" asp-items="ViewBag.ServiceTypes" class="form-select"></select>
+        <span asp-validation-for="TypeServiceId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>سعر الخدمة</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>صور الخدمة (اختيار 3 صور)</label>
+        <input type="file" name="Images" class="form-control" multiple />
+    </div>
+
+    <button type="submit" class="btn btn-primary">إرسال الخدمة</button>
+</form>

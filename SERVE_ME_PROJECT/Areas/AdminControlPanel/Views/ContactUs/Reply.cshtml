@@ -1,0 +1,18 @@
+﻿@model VmReply
+
+<form asp-action="Reply" method="post">
+    <input type="hidden" asp-for="MessageId" />
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject"></label>
+        <input asp-for="Subject" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Body"></label>
+        <textarea asp-for="Body" class="form-control" rows="5"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">إرسال الرد</button>
+</form>

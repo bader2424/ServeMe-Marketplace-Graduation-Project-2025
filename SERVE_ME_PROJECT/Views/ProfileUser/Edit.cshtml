@@ -1,0 +1,107 @@
+﻿ @model ApplicationUser
+
+@{
+    ViewData["Title"] = "تعديل الحساب";
+    Layout = "_LayoutServeMe";
+
+}
+
+<style>
+    .edit-section {
+        background: #fff;
+        padding: 40px 20px;
+        border-radius: 20px;
+        max-width: 700px;
+        margin: auto;
+        direction: rtl;
+    }
+
+        .edit-section h2 {
+            color: #0d3b66;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+            color: #0d3b66;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #0d6efd;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    .btn-save {
+        background: linear-gradient(135deg, #0d6efd, #0d3b66);
+        color: #fff;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto 0;
+        transition: 0.3s ease;
+    }
+
+        .btn-save:hover {
+            background: #0b4ea1;
+        }
+</style>
+
+<section class="edit-section">
+    <h2>تعديل الحساب</h2>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" name="OldImagePath" value="@Model.ProfileImagePath" />
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="FullName"> اسم المستخدم</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email"> الايميل </label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber"> رقم الهاتف </label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="City"> المدينة </label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+         <div class="form-group">
+        <label>الصورة الشخصية</label>
+        <input type="file" name="ProfileImage" class="form-control-file" />
+        @if (!string.IsNullOrEmpty(Model.ProfileImagePath))
+        {
+                <img src="~/imgusers/@Model.ProfileImagePath" alt="Profile" width="100" class="mt-2" />
+        }
+    </div>
+        <button type="submit" class="btn-save">حفظ التعديلات</button>
+    </form>
+</section>

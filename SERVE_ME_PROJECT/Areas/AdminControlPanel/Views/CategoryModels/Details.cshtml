@@ -1,0 +1,23 @@
+﻿@model SERVE_ME_PROJECT.Models.CategoryModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+
+}
+
+<h1>تفاصي لاتصنيف </h1>
+
+<div>
+     <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">الاسم         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">تعديل </a> |
+    <a asp-action="Index" class="btn btn-outline-primary">العودة للقائمة  </a>
+</div>

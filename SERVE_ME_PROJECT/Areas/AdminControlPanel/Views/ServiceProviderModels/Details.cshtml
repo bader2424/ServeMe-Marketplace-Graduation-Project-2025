@@ -1,0 +1,42 @@
+﻿@model SERVE_ME_PROJECT.Models.ServiceProviderModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>تفاصيل مزود الخدمة </h1>
+
+<div>
+     <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">اسم المتجر         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NameShop)
+        </dd>
+        <dt class = "col-sm-2">الوصف         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">شعار المتجر          </dt>
+        <dd class = "col-sm-10">
+            <img src="/img/@Model.Logo" height="200" width="250" />
+        </dd>
+        <dt class = "col-sm-2">السجل التجاري         </dt>
+        <dd class = "col-sm-10">
+            <img src="/img/@Model.PhotoRecord" height="200" width="250" />
+        </dd>
+        <dt class = "col-sm-2">تاريخ الانضمام         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JoinDate)
+        </dd>
+        <dt class = "col-sm-2">اسم المستخدم         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-outline-primary">تراجع </a>  
+    <a asp-action="ReApproveProvider" class="btn btn-outline-primary">مستخدم  عادي</a>
+</div>

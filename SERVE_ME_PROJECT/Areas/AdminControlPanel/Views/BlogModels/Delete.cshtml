@@ -1,0 +1,37 @@
+﻿@model SERVE_ME_PROJECT.Models.BlogModel
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Delete";
+}
+
+<h1>حذف </h1>
+
+<h3> هل انت متأكد من حذف هذه المدونة ؟ </h3>
+<div>
+     <hr />
+    <dl class="row">
+        <dt class="col-sm-2">العنوان         </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">التفاصيل         </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt class="col-sm-2">الصورة         </dt>
+        <dd class="col-sm-10">
+            <img src="/img/@Model.ImgUrl" />
+        </dd>
+        <dt class="col-sm-2">تاريخ النشر         </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SentDate)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف " class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-outline-primary">العودة للقائمة </a>
+    </form>
+</div>

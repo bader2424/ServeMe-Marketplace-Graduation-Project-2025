@@ -1,0 +1,24 @@
+﻿ @model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+
+@{
+    Layout = "_LayoutServices";
+}
+<h2>قائمة المستخدمين</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>البريد الإلكتروني</th>
+            <th>اسم المستخدم</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>

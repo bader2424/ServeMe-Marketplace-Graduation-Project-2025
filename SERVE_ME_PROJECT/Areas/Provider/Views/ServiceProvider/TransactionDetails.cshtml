@@ -1,0 +1,203 @@
+﻿@model SERVE_ME_PROJECT.Models.WalletTransaction
+@{
+    ViewData["Title"] = "تفاصيل المعاملة";
+    var isEarning = Model.TransactionType?.Code == "SERVICE_INCOME";
+    Layout = "_LayoutProvid";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-receipt me-2"></i>تفاصيل المعاملة #@Model.TransactionId
+                        </h4>
+                        <span class="badge @(Model.Status == "Completed" ? "bg-success" : "bg-warning") fs-6">
+                            @Model.Status
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <!-- بطاقة معلومات المعاملة الأساسية -->
+                    <div class="transaction-info-card mb-4 p-4 border rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="far fa-calendar-alt me-2"></i>تاريخ المعاملة
+                                    </h6>
+                                    <p class="fs-5">@Model.TransactionDate.ToString("yyyy/MM/dd - hh:mm tt")</p>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="fas fa-exchange-alt me-2"></i>نوع المعاملة
+                                    </h6>
+                                    <p class="fs-5">@Model.TransactionType?.Name</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="fas fa-money-bill-wave me-2"></i>المبلغ
+                                    </h6>
+                                    <p class="fs-5 @(isEarning ? "text-success" : "text-danger") fw-bold">
+                                        @(isEarning ? "+" : "-") @Model.Amount.ToString("N2") ر.ي
+                                    </p>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <h6 class="text-muted mb-1">
+                                        <i class="fas fa-wallet me-2"></i>الرصيد بعد المعاملة
+                                    </h6>
+                                    <p class="fs-5">@Model.BalanceAfter.ToString("N2") ر.ي</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تفاصيل إضافية -->
+                    <div class="details-section mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">
+                            <i class="fas fa-info-circle me-2"></i>تفاصيل إضافية
+                        </h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-sm-5">الوصف:</dt>
+                                    <dd class="col-sm-7">@Model.Description</dd>
+
+                                    @if (Model.Order != null)
+                                    {
+                                            <dt class="col-sm-5">رقم الطلب:</dt>
+                                            <dd class="col-sm-7">#@Model.Order.Id</dd>
+                                    }
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="row">
+                                    <dt class="col-sm-5">الرصيد قبل:</dt>
+                                    <dd class="col-sm-7">@Model.BalanceBefore.ToString("N2") ر.ي</dd>
+
+                                    @if (Model.Order?.Service != null)
+                                    {
+                                            <dt class="col-sm-5">نوع الخدمة:</dt>
+                                            <dd class="col-sm-7">@Model.Order.Service.Name</dd>
+                                    }
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- معلومات الطلب المرتبط -->
+                    @if (Model.Order != null)
+                    {
+                            <div class="order-details-card mb-4 p-4 border rounded">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-shopping-cart me-2"></i>معلومات الطلب
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="info-item mb-3">
+                                            <h6 class="text-muted mb-1">العميل:</h6>
+                                            <p>@Model.Order.User?.FullName</p>
+                                        </div>
+
+                                        <div class="info-item mb-3">
+                                            <h6 class="text-muted mb-1">تاريخ الطلب:</h6>
+                                            <p>@Model.Order.OrderDate.ToString("yyyy/MM/dd")</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="info-item mb-3">
+                                            <h6 class="text-muted mb-1">السعر:</h6>
+                                            <p>@Model.Order.Price.ToString("N2") ر.ي</p>
+                                        </div>
+
+                                        <div class="info-item mb-3">
+                                            <h6 class="text-muted mb-1">الحالة:</h6>
+                                            <span class="badge @GetOrderStatusBadge(Model.Order.OrderStat?.Name)">
+                                            @Model.Order.OrderStat?.Name
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            @if (Model.Order.Service != null)
+                            {
+                                        <div class="text-center mt-3">
+                                            <a asp-controller="Services" 
+                                               asp-action="Details" 
+                                               asp-route-id="@Model.Order.Service.Id"
+                                               class="btn btn-outline-primary btn-sm">
+                                                <i class="fas fa-external-link-alt me-1"></i>عرض تفاصيل الخدمة
+                                            </a>
+                                        </div>
+                            }
+                            </div>
+                    }
+
+                    <!-- أزرار التنقل -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="EarningsHistory" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-right me-1"></i>العودة للسجل
+                        </a>
+
+                        @if (Model.WithdrawalRequestId.HasValue)
+                        {
+                                <a asp-action="WithdrawalDetails" 
+                                   asp-route-id="@Model.WithdrawalRequestId"
+                                   class="btn btn-outline-primary">
+                                    <i class="fas fa-file-invoice-dollar me-1"></i>تفاصيل طلب السحب
+                                </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetOrderStatusBadge(string status)
+    {
+        return status switch
+        {
+            "مكتمل" => "bg-success",
+            "معلق" => "bg-warning",
+            "ملغي" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}
+
+@section Styles {
+        <style>
+            .transaction-info-card {
+                background-color: #f8f9fa;
+            }
+            .info-item h6 {
+                font-size: 0.9rem;
+            }
+            .info-item p {
+                margin-bottom: 0;
+            }
+            .order-details-card {
+                background-color: #f0f8ff;
+            }
+            .admin-notes {
+                border-right: 4px solid #ffc107;
+            }
+            .badge {
+                font-size: 0.8rem;
+                padding: 0.35em 0.65em;
+            }
+        </style>
+}

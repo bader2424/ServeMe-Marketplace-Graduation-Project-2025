@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SERVE_ME_PROJECT.Models.BlogModel>
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Index";
+}
+
+<h1> عرض المدونات </h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary"> إضافة جديد </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>العنوان             </th>
+            <th>تاريخ الارسال             </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SentDate)
+            </td>
+            <td>
+                    <a asp-action="Edit" class="status-btn success" asp-route-id="@item.Id">تعديل</a> |
+                    <a asp-action="Details" class="status-btn waiting" asp-route-id="@item.Id">التفاصيل </a> |
+                    <a asp-action="Delete" class="status-btn fail" asp-route-id="@item.Id">حذف</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

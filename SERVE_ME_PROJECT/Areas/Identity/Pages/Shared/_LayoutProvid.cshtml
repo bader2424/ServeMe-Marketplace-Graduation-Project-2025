@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - مزودي الخدمات  </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SERVE_ME_PROJECT.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/~/Admin/css/all.min.css">
+    <link rel="stylesheet" href="~/Admin/css/controlPanelForAdmin.css">
+    <link rel="stylesheet" href="~/provider/css/controlPanalForServeiceProvider.css">
+
+	
+</head>
+<body>
+    <header>
+	
+
+        <div class="topnav">
+            <h1>لوحة التحكم - مزودي الخدمات </h1>
+            <div class="user-info">
+                <span>مرحبا، مزود الخدمة  </span>
+                <img src="~/Admin/images/geto.png" alt=" مزود الخدمة ">
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <a asp-area="Provider" asp-controller="Home" asp-action="Staticts">
+                        <i class="fas fa-layer-group"></i> الإحصائيات
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Provider" asp-controller="Service" asp-action="Index">
+                        <i class="fas fa-layer-group"></i> إدارة الخدمات
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Provider" asp-controller="Order" asp-action="Index">
+                        <i class="fas fa-layer-group"></i> إدارة الطلبات 
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Provider" asp-controller="Home" asp-action="Comments">
+                        <i class="fas fa-layer-group"></i>   التعليقات
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Provider" asp-controller="ServiceProvider" asp-action="Index">
+                        <i class="fas fa-layer-group"></i> إدارة الحساب
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="main-content">
+        <main>
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <footer>
+
+		
+    </footer>
+    <script src="~/Admin/js/controlPanelForAdmin.js"></script>
+	
+
+</body>
+</html>

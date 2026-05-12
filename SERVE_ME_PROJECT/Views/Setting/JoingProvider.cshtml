@@ -1,0 +1,77 @@
+﻿@model SERVE_ME_PROJECT.Models.ApplicationUser
+
+@{
+
+    ViewData["Title"] = "Create";
+    Layout = "_LayoutLogin";
+}
+
+<div class="container" id="container">
+    <div class="form-container sign-up">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly"></div>
+            <h1>تسجيل الدخول</h1>
+            <div class="form-group">
+                <input type="text" id="nameshop" placeholder=" " required>
+                <label for="nameshop">  nameshop </label>
+                <i class="fas fa-envelope icon"></i>
+                <span class="error-message" id="nameshop">يرجى إدخال .</span>
+            </div>
+            <div class="form-group">
+                <input type="text" id="Description" placeholder=" " required>
+                <label for="Description">  Description </label>
+                <i class="fas fa-envelope icon"></i>
+                <span class="error-message" id="Description">يرجى إدخال .</span>
+            </div>
+            <div class="form-group">
+                <input type="file" id="PhotoRecord" placeholder=" " required>
+                <label for="PhotoRecord">  PhotoRecord </label>
+                <i class="fas fa-envelope icon"></i>
+                <span class="error-message" id="PhotoRecord">يرجى إدخال .</span>
+            </div>
+            <div class="form-group">
+                <input type="file" id="Logo" placeholder=" " required>
+                <label for="Logo">  Logo </label>
+                <i class="fas fa-envelope icon"></i>
+                <span class="error-message" id="Logo">يرجى إدخال .</span>
+            </div>
+            <div class="form-group">
+                <input type="date" id="JoinDate" placeholder=" " required>
+                <label for="JoinDate">  JoinDate </label>
+                <i class="fas fa-envelope icon"></i>
+                <span class="error-message" id="JoinDate">يرجى إدخال .</span>
+            </div>
+            <div class="form-group">
+                <input type="number" id="UserId" placeholder=" " required>
+                <label for="UserId">  UserId </label>
+                <i class="fas fa-envelope icon"></i>
+                <span class="error-message" id="UserId">يرجى إدخال .</span>
+            </div>
+            <div>
+                 <button type="submit" class="hidden"  >  انضمام</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-container sign-in">
+        <form>
+            
+        </form>
+    </div>
+
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>مرحبًا، صديقي!</h1>
+                <p>قم بتسجيل دخولك لاستخدام جميع ميزات الموقع</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

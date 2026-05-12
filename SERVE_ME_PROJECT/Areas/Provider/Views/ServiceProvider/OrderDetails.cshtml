@@ -1,0 +1,54 @@
+﻿@model SERVE_ME_PROJECT.Models.OrderModel
+@{
+    Layout = "_LayoutProvid";
+    ViewData["Title"] = "تفاصيل الطلب";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="text-center mb-4">تفاصيل الطلب رقم @Model.Id</h2>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">اسم الخدمة</dt>
+                        <dd class="col-sm-8">@Model.Service?.Name</dd>
+
+                        <dt class="col-sm-4">اسم العميل</dt>
+                        <dd class="col-sm-8">@Model.User?.UserName</dd>
+
+                        <dt class="col-sm-4">السعر</dt>
+                        <dd class="col-sm-8">@Model.Price.ToString("0.00") ريال</dd>                        
+                        
+                        <dt class="col-sm-4"> تاريخ الطلب </dt>
+                        <dd class="col-sm-8">@Model.OrderDate.ToString("yyyy/MM/dd")</dd>
+
+                        <dt class="col-sm-4">الحالة الحالية</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-info text-dark">@Model.OrderStat?.Name</span>
+                        </dd>
+                    </dl>
+
+                    @if (Model.OrderStat?.Name == "SentToProvider")
+                    {
+                        <hr />
+                        <form asp-action="ApproveAndTransfer" method="post" class="text-center mt-3">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <button type="submit" class="btn btn-success btn-lg px-5">
+                                <i class="bi bi-check-circle"></i> الموافقة وتحويل الرصيد
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <a asp-action="ServiceRequests" class="btn btn-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> رجوع إلى الطلبات
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

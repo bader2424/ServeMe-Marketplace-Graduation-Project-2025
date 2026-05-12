@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SERVE_ME_PROJECT.Models.ServiceProviderModel>
+
+@{
+
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>  مزودي الخدمات </h1>
+<a asp-action="Requests" class="status-btn waiting">طلبات الانضمام</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>اسم المتجر             </th>
+            <th>شعار المتجر             </th>
+            <th>اسم المستخدم             </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameShop)
+            </td>
+            <td>
+               <img src="/img/@item.Logo" height="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+                <td>
+                    <a asp-action="Details" class="status-btn success" asp-route-id="@item.Id">تفاصيل </a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+

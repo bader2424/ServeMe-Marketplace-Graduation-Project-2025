@@ -1,0 +1,49 @@
+﻿@using SERVE_ME_PROJECT.Areas.AdminControlPanel.ViewModels
+@model List<UserWithRolesViewModel>
+
+@{
+    ViewData["Title"] = "إدارة الحسابات";
+    Layout = "_LayoutAdmin";
+
+}
+
+<h2>إدارة الحسابات</h2>
+
+<table class="table">
+    <thead style="color:black">
+        <tr>
+            <th>الاسم الكامل</th>
+            <th>البريد الإلكتروني</th>
+            <th>المدينة</th>
+            <th>حالة الحساب</th>
+            <th>نوع المستخدم (الأدوار)</th>
+            <th>تفاصيل</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.User.FullName</td>
+                <td>@item.User.Email</td>
+                <td>@item.User.City</td>
+                <td>
+                    @if (item.User.IsActive)
+                    {
+                        <span class="text-success">مفعل</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">معطل</span>
+                    }
+                </td>
+                <td>@string.Join(", ", item.Roles)</td>
+                <td>
+                    <a asp-controller="Accounts" asp-action="Details" asp-route-id="@item.User.Id" class="status-btn waiting">تفاصيل</a>
+                    <a asp-controller="Accounts" asp-action="ToggleActive" asp-route-id="@item.User.Id" class="btn btn-warning btn-sm">تفعيل/تعطيل</a>
+                    <a asp-controller="Accounts" asp-action="ChangeUserType" asp-route-id="@item.User.Id" class="status-btn fail">تغيير النوع</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

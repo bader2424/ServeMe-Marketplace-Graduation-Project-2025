@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SERVE_ME_PROJECT.Models.ContactUsModel>
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Index";
+}
+
+<h1> تواصل معنا </h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>الاسم   </th>
+            <th>الايميل             </th>
+            <th>العنوان             </th>
+            <th>الرسالة             </th>
+            <th>تاريخ الارسال            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SentDate)
+            </td>
+            <td>
+                    <a asp-action="Details" class="status-btn waiting" asp-route-id="@item.Id">تفاصيل</a> |
+                    <a asp-action="Reply" asp-route-id="@item.Id" class="btn btn-sm btn-primary">الرد</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

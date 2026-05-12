@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "لوحة التحكم";
+    Layout = "_LayoutAdmin";
+}
+
+<h2 class="text-center mt-4">لوحة التحكم</h2>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <a asp-area="AdminControlPanel" asp-controller="Banner" asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-bullhorn"></i> إدارة الإعلانات</a></li>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a asp-area="AdminControlPanel" asp-controller="Typeservice" asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-th-list"></i> إدارة نوع الخدمة</a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a asp-area="AdminControlPanel" asp-controller="CategoryModels" asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-tags"></i> إدارة التصنيفات</a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a asp-area="AdminControlPanel" asp-controller="CityModels" asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-city"></i> إدارة المدن</a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a asp-area="AdminControlPanel" asp-controller="GeneralSettingsModels" asp-action="Index" class="btn btn-outline-primary"><i class="fas fa-cogs"></i> إعدادات الموقع</a>
+        </div>
+    </div>
+</div>

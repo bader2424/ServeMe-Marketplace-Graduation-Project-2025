@@ -1,0 +1,37 @@
+﻿@model SERVE_ME_PROJECT.Models.BannerModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_LayoutAdmin";
+
+}
+
+<h1>تعديل</h1>
+
+ <hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="UrlImage" class="control-label"> الصورة </label>
+                <input asp-for="UrlImage" class="form-control" type="file"/>
+                <span asp-validation-for="UrlImage" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br/>
+<div>
+    <a asp-action="Index" class="btn btn-outline-primary"> العودة للقائمة </a>
+</div>
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ *@

@@ -1,0 +1,143 @@
+﻿@model SERVE_ME_PROJECT.ViewModel.VmAdminWalletDashboard
+
+@{
+    ViewData["Title"] = "لوحة تحكم المحفظة - الإدارة";
+    Layout = "_LayoutAdmin";
+}
+
+
+<div class="admin-wallet-dashboard">
+    <div class="row">
+        <div class="col-md-3" >
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body" >
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">إجمالي الأرصدة</h6>
+                            <h3 class="mb-0">@Model.TotalBalance.ToString("N2") ر.ي</h3>
+                        </div>
+                        <i class="fas fa-wallet fa-3x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card   bg-warning text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">طلبات إيداع معلقة</h6>
+                            <h3 class="mb-0">@Model.PendingDepositsCount</h3>
+                        </div>
+                        <i class="fas fa-money-bill-wave fa-3x opacity-50"></i>
+                    </div>
+                    <a asp-action="ManageDeposits" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card   bg-danger text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">طلبات سحب معلقة</h6>
+                            <h3 class="mb-0">@Model.PendingWithdrawalsCount</h3>
+                        </div>
+                        <i class="fas fa-hand-holding-usd fa-3x opacity-50"></i>
+                    </div>
+                    <a asp-action="ManageWithdrawals" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card   bg-success text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title">أرباح النظام</h6>
+                            <h3 class="mb-0">@Model.SystemEarnings.ToString("N2") ر.ي</h3>
+                        </div>
+                        <i class="fas fa-chart-line fa-3x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">آخر المعاملات</h5>
+                <a asp-action="ViewTransactions" class="btn btn-sm btn-outline-light">عرض الكل</a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.RecentTransactions.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>المستخدم</th>
+                                <th>النوع</th>
+                                <th>المبلغ</th>
+                                <th>الوصف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in Model.RecentTransactions)
+                            {
+                                <tr>
+                                    <td>@transaction.TransactionDate.ToString("yyyy/MM/dd HH:mm")</td>
+                                    <td>@transaction.Wallet?.User?.FullName</td>
+                                    <td>@transaction.TransactionType?.Name</td>
+                                    <td class="@(transaction.TransactionType?.IsCredit == true ? "text-success" : "text-danger")">
+                                        @(transaction.TransactionType?.IsCredit == true ? "+" : "-") @transaction.Amount.ToString("N2")
+                                    </td>
+                                    <td>@transaction.Description</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center mb-0">
+                    <i class="fas fa-info-circle"></i> لا توجد معاملات حديثة
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .admin-wallet-dashboard {
+            padding: 20px;
+        }
+
+        .stat-card {
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .stat-card .card-title {
+                font-size: 0.9rem;
+                opacity: 0.9;
+            }
+
+            .stat-card h3 {
+                font-weight: bold;
+            }
+    </style>
+}
